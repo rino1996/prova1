@@ -1,0 +1,4 @@
+mcp9700a	KEYWORD1
+
+celsius	KEYWORD2
+farenheit	KEYWORD2
