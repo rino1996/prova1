@@ -989,7 +989,7 @@ public class XMLInOut{
 	 * @usage Application
 	 */
 	public void saveElement(final XMLElement xmlElement, String filename){
-		File file = new FileOutputStream(file);
+		File file = new FileOutputStream();
 		PrintWriter output = new PrintWriter(file);
 		try{
 			
