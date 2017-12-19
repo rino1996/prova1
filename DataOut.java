@@ -314,7 +314,7 @@ public class DataOut extends Thread {
 					} 
 					catch (Exception e) {
 						System.err.println("Problem running DataOut...");
-						e.printStackTrace();
+						System.out.println("Something was wrong");
 						eventMethod = null;
 					}
 				}
