@@ -989,8 +989,8 @@ public class XMLInOut{
 	 * @usage Application
 	 */
 	public void saveElement(final XMLElement xmlElement, String filename){
-		File file;
-		PrintWriter output = new PrintWriter(new FileOutputStream(file));
+		File file = new FileOutputStream(file);
+		PrintWriter output = new PrintWriter(file);
 		try{
 			
 			if (!pApplet.online){
