@@ -11,13 +11,13 @@ import java.io.StringWriter;
  */
 public class Test {
 	
-    /**
-     * Entry point.
-     * @param args
-     */
+   //empty point
 	public static String objMethod() {
 		class Obj implements JSONString {
         	public String aString;
+        	/*
+        	 * metodo di tipo stringa
+        	 */
         	public double aNumber;
         	public boolean aBoolean;
         	
