@@ -17,10 +17,10 @@ public class Test {
 			/**
         	 * metodo di tipo stringa
         	 */
-        	public String aString; //commento per kiuwan
+        	public String aString; //variabile stringa
         	
-        	public double aNumber;
-        	public boolean aBoolean;
+        	public double aNumber; //variabile double
+        	public boolean aBoolean;//variabile bool
         	
             public Obj(String string, double n, boolean b) {
                 this.aString = string;
