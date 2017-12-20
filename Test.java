@@ -18,8 +18,13 @@ public class Test {
         	 * metodo di tipo stringa
         	 */
         	public String aString; //variabile stringa
-        	
+        	/**
+        	 * metodo di tipo stringa
+        	 */
         	public double aNumber; //variabile double
+        	/**
+        	 * metodo di tipo stringa
+        	 */
         	public boolean aBoolean;//variabile bool
         	
             public Obj(String string, double n, boolean b) {
