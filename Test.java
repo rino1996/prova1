@@ -14,10 +14,11 @@ public class Test {
    //empty point
 	public static String objMethod() {
 		class Obj implements JSONString {
-        	public String aString;
-        	/**
+			/**
         	 * metodo di tipo stringa
         	 */
+        	public String aString; //commento per kiuwan
+        	
         	public double aNumber;
         	public boolean aBoolean;
         	
