@@ -15,7 +15,7 @@ public class Test {
 	public static String objMethod() {
 		class Obj implements JSONString {
         	public String aString;
-        	/*
+        	/**
         	 * metodo di tipo stringa
         	 */
         	public double aNumber;
