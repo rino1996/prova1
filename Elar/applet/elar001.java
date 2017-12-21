@@ -143,7 +143,7 @@ public void setup() {
    String user     = "elar";
    String pass     = "elar";
    String database = "elar";
-   String server = "192.168.1.121";
+   String server = "\"192.168.1.121\"";
    //String server = "10.10.1.157";
 
   msql = new MySQL( this, server, database, user, pass );

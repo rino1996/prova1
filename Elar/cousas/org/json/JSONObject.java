@@ -343,11 +343,7 @@ final class Null {
     			put(key, ((Integer)value).intValue() + 1);
     		} else if (value instanceof Long) {
     			put(key, ((Long)value).longValue() + 1);    			
-    		} else if (value instanceof Double) {
-	    		put(key, ((Double)value).doubleValue() + 1);    			
-    		} else if (value instanceof Float) {
-	    		put(key, ((Float)value).floatValue() + 1);    			
-		    } else {
+    		} else {
 		    	throw new JSONException("Unable to increment [" + key + "].");
 		    }
 	    }
@@ -403,17 +399,6 @@ final class Null {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /**
      * There is only intended to be a single instance of the NULL object,
      * so the clone method returns itself.
@@ -428,7 +413,7 @@ final class Null {
      * @return true if the object parameter is the JSONObject.NULL object
      *  or null.
      */
-    public class EQLFIXED
+    public class EQLFIXED{
     	private int value;//mio
     public boolean equals(Object obj) { if (o instanceof EQLFIXED) {
 
@@ -439,6 +424,7 @@ final class Null {
   	           return temp.value == value;
   	         }
         return obj == null || obj == this;
+    }
     }
     
     public int hashCode() {//mio
@@ -1584,17 +1570,7 @@ public void ifFloatThrowMethod(Object o) {
     	
         stringValue(o);
          numberValue(o); 
-        //
-        if (value instanceof Boolean || value instanceof JSONObject ||
-                value instanceof JSONArray) {
-            return value.toString();
-        }
-        if (value instanceof Map) {
-            return new JSONObject((Map)value).toString();
-        }
-        if (value instanceof Collection) {
-            return new JSONArray((Collection)value).toString();
-        }
+        
         if (value.getClass().isArray()) {
             return new JSONArray(value).toString();
         }
@@ -1723,21 +1699,7 @@ public void ifFloatThrowMethod(Object o) {
       * @param object The object to wrap
       * @return The wrapped value
       */
-     //_________________________________________________________
-     
-     public static String objectWrapMethod(Object object) {
-    	 if (object instanceof JSONObject || object instanceof JSONArray || 
-        		 NULL.equals(object)      || object instanceof JSONString || 
-        		 object instanceof Byte   || object instanceof Character ||
-                 object instanceof Short  || object instanceof Integer   ||
-                 object instanceof Long   || object instanceof Boolean   || 
-                 object instanceof Float  || object instanceof Double    ||
-                 object instanceof String) {
-             return (String)object;
-         }
-     }
-     
-     //________________________________________________________
+    
      
      public static Collection collezioneWrapMethod(Object object) {
     	 if (object instanceof Collection) {

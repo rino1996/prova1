@@ -35,7 +35,7 @@ import java.net.*;
 final class Client implements Runnable {
 
 	PApplet parent;
-	Method clientEventMethod;
+	int clientEventMethod;//mio
 
 	Thread thread;
 	Socket socket;
@@ -143,7 +143,7 @@ final class Client implements Runnable {
 
 	//____________________________________________________________________
 	
-	public void whileMethod(Thread th, InputStream in, byte buf[], int bufL, Method cl, PApplet p, String h) {
+	public void whileMethod(Thread th, InputStream in, byte buf[], int bufL, int cl, PApplet p, String h) {//mio
 		Thread a=Thread.currentThread();//mio
 		while (a == thread) {
 			
@@ -153,7 +153,7 @@ final class Client implements Runnable {
 	}
 	
 	
-	public void tryWhileMethod(InputStream in, byte buf[], int bufL, Thread th, Method cl, PApplet p, String h ) {
+	public void tryWhileMethod(InputStream in, byte buf[], int bufL, Thread th, int cl, PApplet p, String h ) {//mio
 		try {
 				whileTryMethod(input, buffer, bufferLast);
 			
@@ -192,7 +192,7 @@ final class Client implements Runnable {
 		}
 	}
 	
-	public void ifMethod(Method cl, PApplet p, String h) {
+	public void ifMethod(int cl, PApplet p, String h) {//mio
 		// now post an event
 			if (clientEventMethod != null) {
 				ifTryMethod(clientEventMethod, parent, host);
@@ -200,7 +200,7 @@ final class Client implements Runnable {
 		}
 	}
 	
-	public void ifTryMethod(Method cl, PApplet p, String h) {
+	public void ifTryMethod(int cl, PApplet p, String h) {//mio
 		try {
 			clientEventMethod.invoke(parent, new Object[] { this });
 		} catch (Exception e) {
@@ -230,7 +230,7 @@ final class Client implements Runnable {
 			InputStream in;
 			byte buf[];
 			int bufL;
-			Method cl;
+			int cl;//mio
 			PApplet p;
 			String h;
 			
