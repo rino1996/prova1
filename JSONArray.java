@@ -92,8 +92,51 @@ public class JSONArray {
 	    public JSONArray(String source) throws JSONException {
 	        this(new JSONTokener(source));
 	    }
+	    public JSONArray(Collection collection) {
+			this.myArrayList = new ArrayList();
+			if (collection != null) {
+				Iterator iter = collection.iterator();
+				while (iter.hasNext()) {
+				    Object o = iter.next();
+	                this.myArrayList.add(JSONObject.wrap(o));  
+				}
+			}
+	    }
+	    
+	    public int length() {
+	        return this.myArrayList.size();
+	    }
+	    
+	    public Writer write(Writer writer) throws JSONException {
+	        try {
+	            boolean b = false;
+	            int     len = length();
 
+	            writer.write('[');
+
+	            for (int i = 0; i < len; i += 1) {
+	                if (b) {
+	                    writer.write(',');
+	                }
+	                Object v = this.myArrayList.get(i);
+	                if (v instanceof JSONObject) {
+	                    ((JSONObject)v).write(writer);
+	                } else if (v instanceof JSONArray) {
+	                    ((JSONArray)v).write(writer);
+	                } else {
+	                    writer.write(JSONObject.valueToString(v));
+	                }
+	                b = true;
+	            }
+	            writer.write(']');
+	            return writer;
+	        } catch (IOException e) {
+	           throw new JSONException("Something was wrong");
+	        }
+	    }
 	}
+	}
+	
 
 
     /**
@@ -185,16 +228,7 @@ public class JSONArray {
      * Construct a JSONArray from a Collection.
      * @param collection     A Collection.
      */
-    public JSONArray(Collection collection) {
-		this.myArrayList = new ArrayList();
-		if (collection != null) {
-			Iterator iter = collection.iterator();
-			while (iter.hasNext()) {
-			    Object o = iter.next();
-                this.myArrayList.add(JSONObject.wrap(o));  
-			}
-		}
-    }
+   
 
     
     /**
@@ -389,9 +423,7 @@ public class JSONArray {
      *
      * @return The length (or size).
      */
-    public int length() {
-        return this.myArrayList.size();
-    }
+  
 
 
     /**
@@ -914,31 +946,4 @@ public class JSONArray {
      * @return The writer.
      * @throws JSONException
      */
-    public Writer write(Writer writer) throws JSONException {
-        try {
-            boolean b = false;
-            int     len = length();
-
-            writer.write('[');
-
-            for (int i = 0; i < len; i += 1) {
-                if (b) {
-                    writer.write(',');
-                }
-                Object v = this.myArrayList.get(i);
-                if (v instanceof JSONObject) {
-                    ((JSONObject)v).write(writer);
-                } else if (v instanceof JSONArray) {
-                    ((JSONArray)v).write(writer);
-                } else {
-                    writer.write(JSONObject.valueToString(v));
-                }
-                b = true;
-            }
-            writer.write(']');
-            return writer;
-        } catch (IOException e) {
-           throw new JSONException("Something was wrong");
-        }
-    }
-}
+  
