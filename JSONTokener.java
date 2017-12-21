@@ -265,7 +265,7 @@ public class JSONTokener {
                break;
            default:
                if (c == quote) {
-                   return sb.toString();
+                   return sb;
                }
                sb.append(c);
            }
