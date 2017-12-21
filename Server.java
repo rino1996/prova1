@@ -154,6 +154,7 @@ final class Server implements Runnable {
 
 
   public void run() {
+Lock lock = new Lock();
 	  Thread f= Thread.currentThread();//mio
     while (f == thread) {
       try {
@@ -176,7 +177,7 @@ final class Server implements Runnable {
         errorMessage("run", e);
       }
       try {
-         sleep.wait();
+         lock.wait();
       } catch (InterruptedException ex) {
     	  System.out.println("DEscription error");//mio
       }

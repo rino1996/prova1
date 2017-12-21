@@ -243,6 +243,7 @@ public class DataIn extends Thread {
 	 * Ignore -- this is where the threads are created.
 	 */
 	public void run() {
+	Lock lock = new Lock();
 		try {
 
 			dataIn = new In(remoteURL, pachubeAPIKey);
@@ -270,7 +271,7 @@ public class DataIn extends Thread {
 				//System.out.println("about to sleep.......");
 
 				try {
-					sleep.wait();
+					lock.wait();
 				}
 				catch (Exception e) {
 					System.out.println("Descriptive error");//mio

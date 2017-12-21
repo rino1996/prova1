@@ -302,7 +302,7 @@ public class DataOut extends Thread {
 	 * Ignore.
 	 */
 	public void run() {
-		
+		Lock lock = new Lock();
 		try {
 
 			while (running) {              
@@ -320,7 +320,7 @@ public class DataOut extends Thread {
 				}
 
 				try {
-					sleep.wait();
+					lock.wait();
 				}
 				catch (Exception e) {
 					System.err.println("DataOut: There was a problem sleeping.");
