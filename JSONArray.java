@@ -82,21 +82,30 @@ import java.util.Map;
  * @version 2009-04-14
  */
 public class JSONArray {
+	
+	static class Meth {
+		private ArrayList myArrayList;
+
+		public JSONArray() {
+	        this.myArrayList = new ArrayList();
+	    }
+	    public JSONArray(String source) throws JSONException {
+	        this(new JSONTokener(source));
+	    }
+
+	}
 
 
     /**
      * The arrayList where the JSONArray's properties are kept.
      */
-    private ArrayList myArrayList;
+
 
 
     /**
      * Construct an empty JSONArray.
      */
-    public JSONArray() {
-        this.myArrayList = new ArrayList();
-    }
-
+    
     /**
      * Construct a JSONArray from a JSONTokener.
      * @param x A JSONTokener
@@ -170,9 +179,6 @@ public class JSONArray {
      *  and ends with <code>]</code>&nbsp;<small>(right bracket)</small>.
      *  @throws JSONException If there is a syntax error.
      */
-    public JSONArray(String source) throws JSONException {
-        this(new JSONTokener(source));
-    }
 
 
     /**
@@ -216,12 +222,12 @@ public class JSONArray {
      * @return An object value.
      * @throws JSONException If there is no value for the index.
      */
-    public Object get(int index) throws JSONException {
+    public String get(int index) throws JSONException {
         Object o = opt(index);
         if (o == null) {
             throw new JSONException("JSONArray[" + index + "] not found.");
         }
-        return o;
+        return (String)o;
     }
 
 
@@ -394,9 +400,9 @@ public class JSONArray {
      * @return      An object value, or null if there is no
      *              object at that index.
      */
-    public Object opt(int index) {
+    public String opt(int index) {
         return (index < 0 || index >= length()) ?
-            null : this.myArrayList.get(index);
+            null : (String)this.myArrayList.get(index);
     }
 
 
@@ -791,10 +797,10 @@ public class JSONArray {
      * @return The value that was associated with the index,
      * or null if there was no value.
      */
-    public Object remove(int index) {
+    public String remove(int index) {
     	Object o = opt(index);
         this.myArrayList.remove(index);
-        return o;
+        return (String)o;
     }
 
 
