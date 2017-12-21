@@ -270,7 +270,7 @@ public class DataIn extends Thread {
 				//System.out.println("about to sleep.......");
 
 				try {
-					sleep((p));
+					sleep.wait();
 				}
 				catch (Exception e) {
 					System.out.println("Descriptive error");//mio

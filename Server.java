@@ -176,7 +176,7 @@ final class Server implements Runnable {
         errorMessage("run", e);
       }
       try {
-        Thread.sleep(8);
+         sleep.wait();
       } catch (InterruptedException ex) {
     	  System.out.println("DEscription error");//mio
       }
