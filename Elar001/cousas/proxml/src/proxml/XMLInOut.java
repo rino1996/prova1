@@ -78,14 +78,14 @@ final class XMLInOut{
 				
 				loader = new Loader(new BufferedReader(new InputStreamReader(test)),null);
 			}catch (Exception e){
-				throw new RuntimeException("proXML was not able to load the given xml-file: " + documentUrl + " Please check if you have entered the correct url.");
+				throw new Exception("proXML was not able to load the given xml-file: " + documentUrl + " Please check if you have entered the correct url.");
 			}
 		}
 		try{
 			loader.run();
 			return loader.xmlElement;
 		}catch (Exception e){
-			throw new RuntimeException("proXML was not able to read the given xml-file: " + documentUrl + " Please make sure that you load a file that contains valid xml.");
+			throw new Exception("proXML was not able to read the given xml-file: " + documentUrl + " Please make sure that you load a file that contains valid xml.");
 		}
 	}
 	public XMLInOut(final PApplet pApplet){
@@ -95,7 +95,7 @@ final class XMLInOut{
 		try{
 			xmlEventMethod = pApplet.getClass().getMethod("xmlEvent", new Class[] {XMLElement.class});
 		}catch (Exception e){
-			
+			System.out.println("Error");
 		}
 	}
 	static String getSource(){
@@ -116,11 +116,12 @@ final class XMLInOut{
 	 * @param toParse String
 	 * @return BoxToParseElement
 	 */
-	private XMLElement parseDocument(Reader doc){
+	public XMLElement parseDocument(Reader doc){
 
 		firstTag = true;
 		rootNode = true;
-
+		
+		
 		int iChar; //keeps the int value of the current char
 		char cChar; //keeps the char value of the current char
 
@@ -182,6 +183,7 @@ final class XMLInOut{
 								sbText.append(cChar);
 							}
 						}
+						break;
 				}
 			}
 		}catch (Exception e){
@@ -230,7 +232,7 @@ final class XMLInOut{
 		 * @return Reader
 		 * @throws Exception
 		 */
-		private Reader handleStartTag(Reader page, StringBuffer alreadyParsed) throws Exception{
+		public Reader handleStartTag(Reader page, StringBuffer alreadyParsed) throws Exception{
 			int iChar;
 			char cChar;
 
@@ -315,7 +317,7 @@ final class XMLInOut{
 						if (firstTag){
 							firstTag = false;
 							if (!(sTagName.equals("doctype") || sTagName.equals("?xml")))
-								throw new RuntimeException("XML File has no valid header");
+								throw new Exception("XML File has no valid header");
 						}else{
 							if (rootNode && !firstTag){
 								rootNode = false;
@@ -334,11 +336,12 @@ final class XMLInOut{
 					default:
 						bSpaceBefore = false;
 						sbActual.append(cChar);
+						break;
 				}
 				oChar = cChar;
 			}
 
-			throw new RuntimeException("Error in line:"+line);
+			throw new Exception("Error in line:"+line);
 		}
 
 		/**
@@ -348,7 +351,7 @@ final class XMLInOut{
 		 * @return Reader
 		 * @throws Exception
 		 */
-		private Reader handleEndTag(XMLElement xmlEl, Reader toP) throws Exception{
+		public Reader handleEndTag(XMLElement xmlEl, Reader toP) throws Exception{
 			Reader toParse;
 			int iChar;
 			char cChar;
@@ -372,9 +375,10 @@ final class XMLInOut{
 							actualElement = actualElement.getParent();
 						return toParse;
 					default:
+						break;
 				}
 			}
-			throw new RuntimeException("Error in line:"+line);
+			throw new Exception("Error in line:"+line);
 		}
 
 		/**
@@ -384,7 +388,7 @@ final class XMLInOut{
 		 * @return Reader
 		 * @throws Exception
 		 */
-		private Reader handleComment(Reader toParse) throws Exception{
+		public Reader handleComment(Reader toParse) throws Exception{
 			int iChar;
 			char cChar;
 			char prevChar = ' ';
@@ -396,7 +400,7 @@ final class XMLInOut{
 				}
 				prevChar = cChar;
 			}
-			throw new RuntimeException("Comment is not correctly closed in Line:"+line);
+			throw new Exception("Comment is not correctly closed in Line:"+line);
 		}
 		
 		/**
@@ -406,7 +410,7 @@ final class XMLInOut{
 		 * @return Reader
 		 * @throws Exception
 		 */
-		private Reader handleDoctypeSection(Reader toParse) throws Exception{
+		public Reader handleDoctypeSection(Reader toParse) throws Exception{
 			int iChar;
 			char cChar;
 			char prevChar = ' ';
@@ -422,7 +426,7 @@ final class XMLInOut{
 				}
 				prevChar = cChar;
 			}
-			throw new RuntimeException("Comment is not correctly closed in Line:"+line);
+			throw new Exception("Comment is not correctly closed in Line:"+line);
 		}
 
 		/**
@@ -433,7 +437,7 @@ final class XMLInOut{
 		 * @return
 		 * @throws Exception
 		 */
-		private Reader handleEntity(Reader toParse, final StringBuffer stringBuffer) throws Exception{
+		public Reader handleEntity(Reader toParse, final StringBuffer stringBuffer) throws Exception{
 			int iChar;
 			char cChar;
 			final StringBuffer result = new StringBuffer();
@@ -458,7 +462,7 @@ final class XMLInOut{
 				}
 				counter++;
 				if (counter > 4)
-					throw new RuntimeException("Illegal use of &. Use &amp; entity instead. Line:"+line);
+					throw new Exception("Illegal use of &. Use &amp; entity instead. Line:"+line);
 			}
 
 			return toParse;
@@ -470,7 +474,7 @@ final class XMLInOut{
 		 * @return
 		 * @throws Exception
 		 */
-		private Reader handleCDATASection(Reader toParse) throws Exception{
+		public Reader handleCDATASection(Reader toParse) throws Exception{
 			int iChar;
 			char cChar;
 			StringBuffer result = new StringBuffer();
@@ -492,7 +496,7 @@ final class XMLInOut{
 				if (counter > 5 && !checkedCDATA){
 					checkedCDATA = true;
 					if (!result.toString().toUpperCase().equals("CDATA["))
-						throw new RuntimeException(
+						throw new Exception(
 							"Illegal use of <![. " + 
 							"These operators are used to start a CDATA section. <![CDATA[]]>" +
 							" Line:" + line
@@ -502,9 +506,9 @@ final class XMLInOut{
 			}
 
 			if ((char) toParse.read() != ']')
-				throw new RuntimeException("Wrong Syntax at the end of a CDATA section <![CDATA[]]> Line:"+line);
+				throw new Exception("Wrong Syntax at the end of a CDATA section <![CDATA[]]> Line:"+line);
 			if ((char) toParse.read() != '>')
-				throw new RuntimeException("Wrong Syntax at the end of a CDATA section <![CDATA[]]> Line:"+line);
+				throw new Exception("Wrong Syntax at the end of a CDATA section <![CDATA[]]> Line:"+line);
 
 			//XMLElement keep = new XMLElement(sTagName,attributes);
 			//actualElement.addChild(keep);
@@ -527,7 +531,7 @@ final class XMLInOut{
 				// TODO Auto-generated catch block
 				System.out.println("Something was wrong");
 			}catch(NullPointerException e){
-				throw new RuntimeException("You need to implement the xmlEvent() function to handle the loaded xml files.");
+				throw new Exception("You need to implement the xmlEvent() function to handle the loaded xml files.");
 			}
 		}
 
@@ -579,7 +583,7 @@ final class XMLInOut{
 		try{
 			xmlEventMethod = i_parent.getClass().getMethod("xmlEvent", new Class[] {XMLElement.class});
 		}catch (Exception e){
-		
+			System.out.println("Error");
 		}
 	}
 
@@ -622,9 +626,10 @@ final class XMLInOut{
 
 		}catch (MalformedURLException e){
 			// not a url, that's fine
+			System.out.println("Error");
 
 		}catch (IOException e){
-			throw new RuntimeException("Error downloading from URL " + filename);
+			throw new Exception("Error downloading from URL " + filename);
 		}
 
 		// if not online, check to see if the user is asking for a file
@@ -650,10 +655,12 @@ final class XMLInOut{
 						// path will return just the name, while 'filename' may
 						// contain part of a relative path.
 						if (filenameActual.equalsIgnoreCase(filename) && !filenameActual.equals(filename)){
-							throw new RuntimeException("This file is named " + filenameActual + " not " + filename + ".");
+							throw new Exception("This file is named " + filenameActual + " not " + filename + ".");
 						}
 					}catch (IOException e){
+						System.out.println("Error");
 					}
+					
 				}
 
 				// if this file is ok, may as well just load it
@@ -664,7 +671,9 @@ final class XMLInOut{
 				// have to break these out because a general Exception might
 				// catch the RuntimeException being thrown above
 			}catch (IOException ioe){
+				System.out.println("Error");
 			}catch (SecurityException se){
+				System.out.println("Error");
 			}
 		}
 
@@ -690,6 +699,7 @@ final class XMLInOut{
 						return stream;
 
 				}catch (Exception e){
+					System.out.println("Error");
 				} // ignored
 
 				try{
@@ -697,6 +707,7 @@ final class XMLInOut{
 					if (stream != null)
 						return stream;
 				}catch (IOException e2){
+					System.out.println("Error");
 				}
 
 				try{
@@ -704,15 +715,18 @@ final class XMLInOut{
 					if (stream != null)
 						return stream;
 				}catch (IOException e1){
+					System.out.println("Error");
 				}
 
 			}catch (SecurityException se){
+				System.out.println("Error");
 			} // online, whups
 
 			if (stream == null){
 				throw new IOException("openStream() could not open " + filename);
 			}
 		}catch (Exception e){
+			System.out.println("Error");
 		}
 		return null; // #$(*@ compiler
 	}
@@ -749,13 +763,13 @@ final class XMLInOut{
 				InputStream test = openStream(documentUrl);
 				loader = new Thread(new Loader(new BufferedReader(new InputStreamReader(test)),parent));
 			}catch (Exception e){
-				throw new RuntimeException("proXML was not able to load the given xml-file: " + documentUrl + " Please check if you have entered the correct url.");
+				throw new Exception("proXML was not able to load the given xml-file: " + documentUrl + " Please check if you have entered the correct url.");
 			}
 		}
 		try{
 			loader.start();
 		}catch (Exception e){
-			throw new RuntimeException("proXML was not able to read the given xml-file: " + documentUrl + " Please make sure that you load a file that contains valid xml.");
+			throw new Exception("proXML was not able to read the given xml-file: " + documentUrl + " Please make sure that you load a file that contains valid xml.");
 		}
 	}
 	
