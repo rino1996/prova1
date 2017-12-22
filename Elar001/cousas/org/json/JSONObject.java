@@ -69,6 +69,10 @@ final class Null {
      * @throws JSONException If the value is an invalid number
      *  or if the key is null.
      */
+    
+    static class other{
+    	
+    
     public JSONObject accumulate(String key, Object value)
             throws JSONException {
         testValidity(value);
@@ -348,6 +352,7 @@ final class Null {
 		    }
 	    }
     	return this;
+    }
     }
 
 static class Tagl {
