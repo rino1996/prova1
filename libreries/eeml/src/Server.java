@@ -35,7 +35,7 @@ import java.util.*;
 final class Server implements Runnable {
 
   PApplet parent;
-  Method serverEventMethod;
+  int serverEventMethod;//Method->int
 
   Thread thread;
   ServerSocket server;
@@ -156,31 +156,32 @@ final class Server implements Runnable {
   public void run() {
 Lock lock = new Lock();
 	  Thread f= Thread.currentThread();//mio
+	  try {
+	        Socket socket = server.accept();
+	        Client client = new Client(parent, socket);
+	        synchronized (clients) {
+	          clients.addElement(client);
+	          if (serverEventMethod != null) {
+	            try {
+	              serverEventMethod.invoke(parent, new Object[] { this, client });
+	            } catch (Exception e) {
+	              System.err.println("error, disabling serverEvent() " +
+	                                 " for port " + port);
+	              System.out.println("Something was wrong");
+	              serverEventMethod = null;
+	            }
+	          }
+	        }
+	      } catch (IOException e) {
+	        errorMessage("run", e);
+	      }
+	      try {
+	         lock.wait();
+	      } catch (InterruptedException ex) {
+	    	  System.out.println("DEscription error");//mio
+	      }
     while (f == thread) {
-      try {
-        Socket socket = server.accept();
-        Client client = new Client(parent, socket);
-        synchronized (clients) {
-          clients.addElement(client);
-          if (serverEventMethod != null) {
-            try {
-              serverEventMethod.invoke(parent, new Object[] { this, client });
-            } catch (Exception e) {
-              System.err.println("error, disabling serverEvent() " +
-                                 " for port " + port);
-              System.out.println("Something was wrong");
-              serverEventMethod = null;
-            }
-          }
-        }
-      } catch (IOException e) {
-        errorMessage("run", e);
-      }
-      try {
-         lock.wait();
-      } catch (InterruptedException ex) {
-    	  System.out.println("DEscription error");//mio
-      }
+    
     }
   }
 

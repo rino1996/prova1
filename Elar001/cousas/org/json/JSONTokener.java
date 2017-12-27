@@ -265,7 +265,7 @@ public class JSONTokener {
                break;
            default:
                if (c == quote) {
-                   return sb.toString();
+                   return sb;//qui
                }
                sb.append(c);
            }
@@ -279,7 +279,7 @@ public class JSONTokener {
     }
     public String nextString(char quote) throws JSONException {
         char c;
-        String sb = new String();
+        String sb;
         forMethod(c, sb);
         
     }
@@ -348,7 +348,9 @@ public class JSONTokener {
         case '(':
             back();
             return new JSONArray(this);
-        default: System.out.println(" ");
+        default: 
+        	System.out.println(" ");
+        	break;
     }
     }
        public String nextValue() throws JSONException {

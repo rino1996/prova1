@@ -88,7 +88,7 @@ import java.lang.reflect.*;
 
 public class DataOut extends Thread {
 
-	private Method eventMethod;
+	private int eventMethod;//Method->int
 	private Thread exmlThread;
 	private int myport;
 	private Out dataOut;
@@ -304,28 +304,30 @@ public class DataOut extends Thread {
 	public void run() {
 		Lock lock = new Lock();
 		try {
-
-			while (running) {              
+			try {
+				lock.wait();
+			}
+			catch (Exception e) {
+				System.err.println("DataOut: There was a problem sleeping.");
+				System.out.println("Something was wrong");
+			}
+			try {
+				eventMethod.invoke(parent, new Object[] { this } );
+				dataOut.serve();	                        
+			} 
+			catch (Exception e) {
+				System.err.println("Problem running DataOut...");
+				System.out.println("Something was wrong");
+				eventMethod = null;
+			}
+			while (running) { 
+				
 
 				if ((eventMethod != null) & (dataOut.hasClient())) {
-					try {
-						eventMethod.invoke(parent, new Object[] { this } );
-						dataOut.serve();	                        
-					} 
-					catch (Exception e) {
-						System.err.println("Problem running DataOut...");
-						System.out.println("Something was wrong");
-						eventMethod = null;
-					}
+					
 				}
 
-				try {
-					lock.wait();
-				}
-				catch (Exception e) {
-					System.err.println("DataOut: There was a problem sleeping.");
-					System.out.println("Something was wrong");
-				}
+				
 
 			}
 

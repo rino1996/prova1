@@ -71,16 +71,16 @@ public class CDL {
             sb.append(c);
     	}
 	}
-	public static String switchMethodString(char q, char c,String sb,JSONTokener x) {//mio
+	public static String switchMethodString(char q, char c,JSONTokener x) {//mio
 		 switch (c) {
 	        case 0:
 	            return null;
 	        case '"':
 	        case '\'':
 	        	q = c;
-	        	sb = new String();
+	        	String sb;
 	        	for1(c, q, sb, x );
-	            return sb.toString();
+	            return sb;//qui
 	        case ',':
 	            x.back();
 	            return "";
@@ -97,7 +97,7 @@ public class CDL {
             c = x.next();
         } while (c == ' ' || c == '\t');
         
-        switchMethodString(q, c, sb,x);
+        switchMethodString(q, c, x);
     }
 
     /**

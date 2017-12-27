@@ -27,9 +27,7 @@ SOFTWARE.
 
 import java.io.IOException;
 import java.io.Writer;
-import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -422,16 +420,18 @@ static class Tagl {
      */
     
     public class EQLFIXED{
-    	private int value;//mio
-    public boolean equals(Object obj) { if (o instanceof EQLFIXED) {
+    	public int value;//mio
+    public boolean equals(Object o) { if (o instanceof EQLFIXED) {
 
-  	  if (getClass () != obj.getClass ()) { 
-  	             return false; 
-  	        } else {
-  	           EQLFIXED temp = (EQLFIXED)obj;
+  	 // if (getClass () != obj.getClass ()) { 
+  	             //return false; 
+  	       // } else {
+  	           EQLFIXED temp = (EQLFIXED)o;
   	           return temp.value == value;
-  	         }
-        return obj == null || obj == this;
+  	         //}
+        //return obj == null || obj == this;
+    }else {
+    	return false;
     }
     }
     
