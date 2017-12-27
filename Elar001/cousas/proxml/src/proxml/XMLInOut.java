@@ -1,4 +1,4 @@
-package eeml;
+ package eeml;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -121,7 +121,7 @@ final class XMLInOut{
 		firstTag = true;
 		rootNode = true;
 		
-		
+		int aux = 0;
 		char iChar; //keeps the int value of the current char
 		char cChar; //keeps the char value of the current char
 
@@ -149,32 +149,17 @@ final class XMLInOut{
 							actualElement.addChild(new XMLElement(sbText.toString(), true));
 							sbText = " ";
 						}
-						if ((iChar = document.read()) != -1){ //check the next sign...
+						
+						iChar = document.read();
+						if (iChar != -1){ //check the next sign...
 							cChar = iChar; //get its char value..
-
-							if (cChar == '/'){ //in this case we have an end tag
-								document = handleEndTag(result, document); // and handle it
-								break;
-							}else if (cChar == '!'){ //this could be a comment, but we need a further test
-								if ((iChar = document.read()) != -1){ //you should know this now
-									cChar = iChar; //also this one
-									if (cChar == '-'){ //okay its a comment
-										document = handleComment(document); //handle it
-										break;
-									}else if (cChar == '['){//seems to be CDATA Section
-										document = handleCDATASection(document);
-										break;
-									}else if (cChar == 'D'){//seems to be Doctype Section
-										document = handleDoctypeSection(document);
-										break;
-									}
-								}
-							}
+							 aux = cCharControl(cChar, iChar);
 						}
-
+						if (aux ==0)
 						document = handleStartTag(document, new StringBuffer().append(cChar));
 
 						break;
+						
 					default:
 						if (!(cChar == ' ' && !bText)){
 							bText = true;
@@ -192,6 +177,35 @@ final class XMLInOut{
 		}
 		return result;
 	}
+	
+	
+	public int cCharControl(char cChar, char iChar)	{
+		
+		if (cChar == '/'){ //in this case we have an end tag
+			document = handleEndTag(result, document); // and handle it
+			return 1;
+		}
+		
+		if (cChar == '!'){ //this could be a comment, but we need a further test
+			iChar = document.read();
+			if (iChar != -1){ //you should know this now
+				cChar = iChar; //also this one
+				if (cChar == '-'){ //okay its a comment
+					document = handleComment(document); //handle it
+					return 1;
+				} 
+				if (cChar == '['){//seems to be CDATA Section
+					document = handleCDATASection(document);
+					return 1;
+				}
+				if (cChar == 'D'){//seems to be Doctype Section
+					document = handleDoctypeSection(document);
+					return 1;
+				}
+			}
+		} else return 0;
+	}
+		
 	
 	private class Loader implements Runnable{
 
@@ -258,96 +272,92 @@ final class XMLInOut{
 			}
 			iChar = page.read();
 			while (iChar != -1){
-				cChar = iChar;
-				switch (cChar){
-					case '\b':
-						break;
-					case '\f':
-						break;
-					case '\r':
-						break;
-					case '\n':
-						line++;
-						break;
-					case '\t':
-						break;
-					case ' ':
-						if (!bSpaceBefore){
-							if (!inValue){
-								if (bTagName){
-									bTagName = false;
-								}else{
-									String sAttributeName = sbAttributeName.toString();
-									String sAttributeValue = sbAttributeValue.toString();
-									attributes.put(sAttributeName, sAttributeValue);
-
-									sbAttributeName = " ";
-									sbAttributeValue = " ";
-									bLeftAttribute = false;
-								}
-								sbActual = sbAttributeName;
-							}else{
-								sbActual.append(cChar);
-							}
-						}
-						bSpaceBefore = true;
-						break;
-					case '=':
-						if (!inValue){
-							sbActual = sbAttributeValue;
-							bLeftAttribute = true;
-						}else{
-							sbActual.append(cChar);
-						}
-						break;
-					case '"':
-						inValue = !inValue;
-						
-						bSpaceBefore = false;
-						break;
-					case '\'':
-						break;
-					case '/':
-						if (inValue)
-							sbActual.append(cChar);
-						break;
-					case '>':
-						if (bLeftAttribute){
-							String sAttributeName = sbAttributeName.toString();
-							String sAttributeValue = sbAttributeValue.toString();
-							attributes.put(sAttributeName, sAttributeValue);
-						}
-						String sTagName = sbTagName.toString();
-						if (firstTag){
-							firstTag = false;
-							if (!(sTagName.equals("doctype") || sTagName.equals("?xml")))
-								throw new Exception("XML File has no valid header");
-						}else{
-							if (rootNode && !firstTag){
-								rootNode = false;
-								result = new XMLElement(sTagName, attributes);
-								actualElement = result;
-							}else{
-								XMLElement keep = new XMLElement(sTagName, attributes);
-								actualElement.addChild(keep);
-								if (oChar != '/')
-									actualElement = keep;
-							}
-						}
-						break;
-						return page;
-
-					default:
-						bSpaceBefore = false;
-						sbActual.append(cChar);
-						break;
-				}
-				oChar = cChar;
+			page = 	whileMethodControl(page, alreadyParsed, iChar, cChar, bTagName, bSpaceBefore, bLeftAttribute, sbTagName,
+			 sbAttributeValue, sbActual, attributes, inValue, oChar);
+			
 			}
 
 			throw new Exception("Error in line:"+line);
 		}
+		public Reader whileMethodControl(Reader page, StringBuffer alreadyParsed,int iChar,char cChar,
+				boolean bTagName,boolean bSpaceBefore, boolean bLeftAttribute,StringBuffer sbTagName,
+				String sbAttributeValue,StringBuffer sbActual,Hashtable attributes,
+				boolean inValue,char oChar) {
+			cChar = iChar;
+			switch (cChar){
+				case ' ':
+					if ((!bSpaceBefore) && (!inValue) &&  (bTagName) )
+						bTagName = false;
+						else{
+								String sAttributeName = sbAttributeName.toString();
+								String sAttributeValue = sbAttributeValue.toString();
+								attributes.put(sAttributeName, sAttributeValue);
 
+								sbAttributeName = " ";
+								sbAttributeValue = " ";
+								bLeftAttribute = false;
+								sbActual = sbAttributeName;
+								sbActual.append(cChar);
+						
+						}
+						bSpaceBefore = true;
+						break;
+				case '=':
+					if (!inValue){
+						sbActual = sbAttributeValue;
+						bLeftAttribute = true;
+					}else{
+						sbActual.append(cChar);
+					}
+					break;
+				case '"':
+					inValue = !inValue;
+					
+					bSpaceBefore = false;
+					break;
+				case '\'':
+					break;
+				case '/':
+					if (inValue)
+						sbActual.append(cChar);
+					break;
+				case '>':
+					if (bLeftAttribute){
+						String sAttributeName = sbAttributeName.toString();
+						String sAttributeValue = sbAttributeValue.toString();
+						attributes.put(sAttributeName, sAttributeValue);
+					}
+					String sTagName = sbTagName.toString();
+					if (firstTag){
+						firstTag = false;
+						errorMethod(sTagName);
+						
+					}else{
+						if (rootNode && !firstTag){
+							rootNode = false;
+							result = new XMLElement(sTagName, attributes);
+							actualElement = result;
+						}else{
+							XMLElement keep = new XMLElement(sTagName, attributes);
+							actualElement.addChild(keep);
+							if (oChar != '/')
+								actualElement = keep;
+						}
+					}
+					break;
+					return page;
+
+				default:
+					bSpaceBefore = false;
+					sbActual.append(cChar);
+					break;
+			}
+			oChar = cChar;
+		}
+public void errorMethod(String sTagName) {
+	if (!(sTagName.equals("doctype") || sTagName.equals("?xml")))
+		throw new Exception("XML File has no valid header");
+}
 		/**
 		 * Parses the end tags of a XML document
 		 * 
@@ -361,29 +371,34 @@ final class XMLInOut{
 			char cChar;
 			iChar = toParse.read();
 			while (iChar != -1){
-
+				
 				cChar = iChar;
-				switch (cChar){
-					case '\b':
-						break;
-					case '\n':
-						line++;
-						break;
-					case '\f':
-						break;
-					case '\r':
-						break;
-					case '\t':
-						break;
-					case '>':
-						if (!actualElement.equals(xmlElement))
-							actualElement = actualElement.getParent();
-						return toParse;
-					default:
-						break;
-				}
+				toParse = switchMethodEnd(cChar, toParse);
 			}
+			return toParse;
 			throw new Exception("Error in line:"+line);
+		}
+		
+		public Reader switchMethodEnd(char cChar,Reader toParse) {
+			switch (cChar){
+			case '\b':
+				break;
+			case '\n':
+				line++;
+				break;
+			case '\f':
+				break;
+			case '\r':
+				break;
+			case '\t':
+				break;
+			case '>':
+				if (!actualElement.equals(xmlElement))
+					actualElement = actualElement.getParent();
+				return toParse;
+			default:
+				break;
+		}
 		}
 
 		/**
@@ -451,26 +466,33 @@ final class XMLInOut{
 			while (iChar != -1){
 				cChar = iChar;
 				result.append(cChar);
-				if (cChar == ';'){
-					final String entity = result.toString().toLowerCase();
-					if (entity.equals("lt;"))
-						stringBuffer.append("<");
-					else if (entity.equals("gt;"))
-						stringBuffer.append(">");
-					else if (entity.equals("amp;"))
-						stringBuffer.append("&");
-					else if (entity.equals("quot;"))
-						stringBuffer.append("\"");
-					else if (entity.equals("apos;"))
-						stringBuffer.append("'");
+				stringBuffer = stringBufferMethod(cChar,stringBuffer,  result);
+				
 					break;
 				}
 				counter++;
 				if (counter > 4)
 					throw new Exception("Illegal use of &. Use &amp; entity instead. Line:"+line);
-			}
+			
 
 			return toParse;
+		}
+		
+		public StringBuffer stringBufferMethod(char cChar,StringBuffer stringBuffer, StringBuffer result) {
+			if (cChar == ';'){
+				final String entity = result.toString().toLowerCase();
+				if (entity.equals("lt;"))
+					stringBuffer.append("<");
+				else if (entity.equals("gt;"))
+					stringBuffer.append(">");
+				else if (entity.equals("amp;"))
+					stringBuffer.append("&");
+				else if (entity.equals("quot;"))
+					stringBuffer.append("\"");
+				else if (entity.equals("apos;"))
+					stringBuffer.append("'");	
+		}
+			return stringBuffer;
 		}
 
 		/**
@@ -609,6 +631,7 @@ final class XMLInOut{
 		    if (!pachubeAPIKey.equals("")){
 		    connection.setRequestProperty("X-PachubeApiKey", pachubeAPIKey);
 		    }
+		 
 		    int responseCode = connection.getResponseCode();
 		    //InputStream inputStream;
 		    if (responseCode == HttpURLConnection.HTTP_OK) {
