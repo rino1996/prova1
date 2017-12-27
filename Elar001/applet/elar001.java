@@ -4,9 +4,7 @@ import processing.xml.*;
 import de.bezier.data.sql.*; 
 import processing.serial.*; 
 
-import java.applet.*; 
-import java.awt.Frame; 
-import java.awt.event.MouseEvent; 
+import java.applet.*;  
 import java.awt.event.KeyEvent; 
 import java.awt.event.FocusEvent; 
 import java.awt.Image; 
@@ -51,7 +49,8 @@ public class elar001 extends PApplet {
 		int button_width=135;
 		int button_height=35;
 		int button_width_min=38;
-		int button_height_min=button_height = 0;
+		int button_height_min= 0;
+		int button_height = 0;
 
 		//init button positions
 		int button_x=10;
@@ -259,7 +258,9 @@ public void draw() {
       show_about_us();
       int last_number=panel.length-1;
      break;
-     default: System.out.println(" ");
+     default: 
+    	 System.out.println(" ");
+    	 break;
     }
   
   
@@ -374,7 +375,9 @@ public void buttonsOn() {
       bos_es=true;
       bos_gl=false;
      break;
-     default: System.out.println(" ");
+     default: 
+    	 System.out.println(" ");
+    	 break;
    }
    
    bos_panel[section]=true;

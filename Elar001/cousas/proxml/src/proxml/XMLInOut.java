@@ -147,7 +147,7 @@ final class XMLInOut{
 						if (bText){
 							bText = false;
 							actualElement.addChild(new XMLElement(sbText.toString(), true));
-							sbText = new StringBuffer();
+							sbText = " ";
 						}
 						if ((iChar = document.read()) != -1){ //check the next sign...
 							cChar = iChar; //get its char value..
