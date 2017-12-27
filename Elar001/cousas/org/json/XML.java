@@ -75,6 +75,10 @@ public class XML {
      * @param string The string to be escaped.
      * @return The escaped string.
      */
+    
+    static class xml1 {
+    	
+
     public static String escape(String string) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0, len = string.length(); i < len; i++) {
@@ -264,6 +268,7 @@ public class XML {
     		
             
         }
+    }
     }
     
     public static boolean if9Method(Object t, XMLTokener x) {
@@ -660,7 +665,7 @@ public static String ifStringMethod(Object o, String tagName, StringBuffer b, Ob
      */
     public static String toString(Object o, String tagName)
             throws JSONException {
-        String b = new String();//mio
+        String b;//mio
         int          i;
         JSONArray    ja;
         JSONObject   jo;
