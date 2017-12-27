@@ -125,7 +125,7 @@ final class XMLInOut{
 		char iChar; //keeps the int value of the current char
 		char cChar; //keeps the char value of the current char
 
-		StringBuffer sbText = new StringBuffer(); //StringBuffer to parse words in
+		String sbText = " "; //StringBuffer to parse words in
 		boolean bText = false; //has a word been parsed
 		iChar = document.read();
 		try{
@@ -242,8 +242,8 @@ final class XMLInOut{
 			boolean bLeftAttribute = false;
 
 			StringBuffer sbTagName = alreadyParsed;
-			StringBuffer sbAttributeName = new StringBuffer();
-			StringBuffer sbAttributeValue = new StringBuffer();
+			String sbAttributeName = " ";
+			String sbAttributeValue = " ";
 			StringBuffer sbActual = sbTagName;
 
 			Hashtable attributes = new Hashtable();
@@ -281,8 +281,8 @@ final class XMLInOut{
 									String sAttributeValue = sbAttributeValue.toString();
 									attributes.put(sAttributeName, sAttributeValue);
 
-									sbAttributeName = new StringBuffer();
-									sbAttributeValue = new StringBuffer();
+									sbAttributeName = " ";
+									sbAttributeValue = " ";
 									bLeftAttribute = false;
 								}
 								sbActual = sbAttributeName;
@@ -506,7 +506,7 @@ final class XMLInOut{
 							"These operators are used to start a CDATA section. <![CDATA[]]>" +
 							" Line:" + line
 						);
-					result = new StringBuffer();
+					result = " ";
 				}
 			}
 
