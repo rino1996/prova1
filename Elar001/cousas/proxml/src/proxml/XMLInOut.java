@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Hashtable;
@@ -99,11 +98,12 @@ final class XMLInOut{
 		}
 	}
 	static String getSource(){
-		int iChar;
+		char iChar;//mio int 
 		StringBuffer result = new StringBuffer();
+		iChar = keep.read();
 		try{
-			while ((iChar = keep.read()) != -1){
-				result.append((char) iChar);
+			while (iChar != -1){
+				result.append(iChar);//mio
 			}
 		}catch (Exception e){
 			return ("fails");
@@ -122,14 +122,15 @@ final class XMLInOut{
 		rootNode = true;
 		
 		
-		int iChar; //keeps the int value of the current char
+		char iChar; //keeps the int value of the current char
 		char cChar; //keeps the char value of the current char
 
 		StringBuffer sbText = new StringBuffer(); //StringBuffer to parse words in
 		boolean bText = false; //has a word been parsed
+		iChar = document.read();
 		try{
-			while ((iChar = document.read()) != -1){ //as long there is something to read
-				cChar = (char) iChar; //get the current char value
+			while (iChar != -1){ //as long there is something to read
+				cChar = iChar; //get the current char value
 				switch (cChar){ //check the char value
 					case '\b':
 						break;
@@ -149,14 +150,14 @@ final class XMLInOut{
 							sbText = new StringBuffer();
 						}
 						if ((iChar = document.read()) != -1){ //check the next sign...
-							cChar = (char) iChar; //get its char value..
+							cChar = iChar; //get its char value..
 
 							if (cChar == '/'){ //in this case we have an end tag
 								document = handleEndTag(result, document); // and handle it
 								break;
 							}else if (cChar == '!'){ //this could be a comment, but we need a further test
 								if ((iChar = document.read()) != -1){ //you should know this now
-									cChar = (char) iChar; //also this one
+									cChar = iChar; //also this one
 									if (cChar == '-'){ //okay its a comment
 										document = handleComment(document); //handle it
 										break;
@@ -248,9 +249,16 @@ final class XMLInOut{
 			Hashtable attributes = new Hashtable();
 			boolean inValue = false;
 			char oChar = ' ';
-
-			while ((iChar = page.read()) != -1){
-				cChar = (char) iChar;
+			try{
+				if (!inValue && sbActual.charAt(sbActual.length() - 1) == ' '){
+					sbActual.deleteCharAt(sbActual.length() - 1);
+				}
+			}catch (java.lang.StringIndexOutOfBoundsException e){
+				System.out.println(sbActual.toString());
+			}
+			iChar = page.read();
+			while (iChar != -1){
+				cChar = iChar;
 				switch (cChar){
 					case '\b':
 						break;
@@ -260,7 +268,9 @@ final class XMLInOut{
 						break;
 					case '\n':
 						line++;
+						break;
 					case '\t':
+						break;
 					case ' ':
 						if (!bSpaceBefore){
 							if (!inValue){
@@ -292,13 +302,7 @@ final class XMLInOut{
 						break;
 					case '"':
 						inValue = !inValue;
-						try{
-							if (!inValue && sbActual.charAt(sbActual.length() - 1) == ' '){
-								sbActual.deleteCharAt(sbActual.length() - 1);
-							}
-						}catch (java.lang.StringIndexOutOfBoundsException e){
-							System.out.println(sbActual.toString());
-						}
+						
 						bSpaceBefore = false;
 						break;
 					case '\'':
@@ -330,7 +334,7 @@ final class XMLInOut{
 									actualElement = keep;
 							}
 						}
-
+						break;
 						return page;
 
 					default:
@@ -355,9 +359,10 @@ final class XMLInOut{
 			Reader toParse;
 			int iChar;
 			char cChar;
-			while ((iChar = toParse.read()) != -1){
+			iChar = toParse.read();
+			while (iChar != -1){
 
-				cChar = (char) iChar;
+				cChar = iChar;
 				switch (cChar){
 					case '\b':
 						break;
@@ -392,9 +397,9 @@ final class XMLInOut{
 			int iChar;
 			char cChar;
 			char prevChar = ' ';
-
-			while ((iChar = toParse.read()) != -1){
-				cChar = (char) iChar;
+			iChar = toParse.read();
+			while (iChar != -1){
+				cChar = iChar;
 				if (prevChar == '-' && cChar == '>'){
 					return toParse;
 				}
@@ -416,9 +421,9 @@ final class XMLInOut{
 			char prevChar = ' ';
 			
 			boolean entities = false;
-
-			while ((iChar = toParse.read()) != -1){
-				cChar = (char) iChar;
+			iChar = toParse.read();
+			while (iChar != -1){
+				cChar = iChar;
 				if(cChar == '[')entities = true;
 				if (cChar == '>'){
 					if(prevChar == ']' && entities || !entities)
@@ -442,9 +447,9 @@ final class XMLInOut{
 			char cChar;
 			final StringBuffer result = new StringBuffer();
 			int counter = 0;
-
-			while ((iChar = toParse.read()) != -1){
-				cChar = (char) iChar;
+			iChar = toParse.read();
+			while (iChar != -1){
+				cChar = iChar;
 				result.append(cChar);
 				if (cChar == ';'){
 					final String entity = result.toString().toLowerCase();
@@ -481,9 +486,9 @@ final class XMLInOut{
 			int counter = 0;
 			boolean checkedCDATA = false;
 			XMLElement keep = new XMLElement(result.toString());
-			
-			while ((iChar = toParse.read()) != -1){
-				cChar = (char) iChar;
+			iChar = toParse.read();
+			while (iChar != -1){
+				cChar = iChar;
 				if (cChar == ']'){
 					
 					keep.cdata = true;
@@ -664,15 +669,26 @@ final class XMLInOut{
 				}
 
 				// if this file is ok, may as well just load it
+				try{//mio
 				stream = new FileInputStream(file);
-				if (stream != null)
+				if (stream != null) {
 					return stream;
-
+				}
 				// have to break these out because a general Exception might
 				// catch the RuntimeException being thrown above
+				}finally {
+				           if (stream != null) {
+				             try {
+				               stream.close (); // OK
+				             } catch (java.io.IOException e3) {
+				               System.out.println("I/O Exception");
+				             }
+				           }
+				}
 			}catch (IOException ioe){
 				System.out.println("Error");
-			}catch (SecurityException se){
+			}
+			catch (SecurityException se){
 				System.out.println("Error");
 			}
 		}
@@ -694,26 +710,65 @@ final class XMLInOut{
 			try{ // first try to catch any security exceptions
 				try{
 					File file = new File(pApplet.sketchPath, filename);
-					stream = new FileInputStream(file);
-					if (stream != null)
-						return stream;
-
+					try{//mio
+						stream = new FileInputStream(file);
+						if (stream != null) {
+							return stream;
+						}
+						// have to break these out because a general Exception might
+						// catch the RuntimeException being thrown above
+						}finally {
+						           if (stream != null) {
+						             try {
+						               stream.close (); // OK
+						             } catch (java.io.IOException e3) {
+						               System.out.println("I/O Exception");
+						             }
+						           }
+						}
+					
 				}catch (Exception e){
 					System.out.println("Error");
 				} // ignored
 
 				try{
-					stream = new FileInputStream(new File("data", filename));
-					if (stream != null)
-						return stream;
+					try{//mio
+						stream = new FileInputStream(new File("data", filename));
+						if (stream != null) {
+							return stream;
+						}
+						
+						}finally {
+						           if (stream != null) {
+						             try {
+						               stream.close (); // OK
+						             } catch (java.io.IOException e3) {
+						               System.out.println("I/O Exception");
+						             }
+						           }
+						}
+					
 				}catch (IOException e2){
 					System.out.println("Error");
 				}
 
 				try{
-					stream = new FileInputStream(filename);
-					if (stream != null)
-						return stream;
+					try{//mio
+						stream = new FileInputStream(filename);
+						if (stream != null) {
+							return stream;
+						}
+						
+						}finally {
+						           if (stream != null) {
+						             try {
+						               stream.close (); // OK
+						             } catch (java.io.IOException e3) {
+						               System.out.println("I/O Exception");
+						             }
+						           }
+						}
+					
 				}catch (IOException e1){
 					System.out.println("Error");
 				}
