@@ -132,8 +132,6 @@ final class XMLInOut{
 			while (iChar != -1){ //as long there is something to read
 				cChar = iChar; //get the current char value
 				switch (cChar){ //check the char value
-					case '\b':
-						break;
 					case '\n':
 						line++;
 						break;
@@ -619,9 +617,8 @@ public void errorMethod(String sTagName) {
 	 * @param filename
 	 * @return InputStream
 	 */
-	private InputStream openStream(String filename){
-		InputStream stream = null;
-
+	public InputStream connessione(String filename,InputStream stream) {
+		
 		try{
 			
 			
@@ -660,6 +657,81 @@ public void errorMethod(String sTagName) {
 			throw new Exception("Error downloading from URL " + filename);
 		}
 
+	}
+	
+	public String controlloFileEsistente(File file, String filename) {
+		try{
+			
+			String path = file.getCanonicalPath();
+			String filenameActual = new File(path).getName();
+			// if the actual filename is the same, but capitalized
+			// differently, warn the user. unfortunately this won't
+			// work in subdirectories because getName() on a relative
+			// path will return just the name, while 'filename' may
+			// contain part of a relative path.
+			if (filenameActual.equalsIgnoreCase(filename) && !filenameActual.equals(filename)){
+				throw new Exception("This file is named " + filenameActual + " not " + filename + ".");
+			}
+		}catch (IOException e){
+			System.out.println("Error");
+		}
+	}
+	
+	
+	public InputStream caricaFile(InputStream stream,File file) {
+		try{//mio
+			stream = new FileInputStream(file);
+			if (stream != null) {
+				return stream;
+			}
+			// have to break these out because a general Exception might
+			// catch the RuntimeException being thrown above
+			}finally {
+			           if (stream != null) {
+			             try {
+			               stream.close (); // OK
+			             } catch (java.io.IOException e3) {
+			               System.out.println("I/O Exception");
+			             }
+			           }
+			}
+		
+	}
+	
+	
+	public InputStream loadFile(InputStream stream, String filename,  int aux ) {
+		try{
+			File file = new File(pApplet.sketchPath, filename);
+			try{//mio
+				stream = new FileInputStream(file);
+				aux = ifStream(stream);
+				if(aux == 1) return stream;
+				// have to break these out because a general Exception might
+				// catch the RuntimeException being thrown above
+				}finally {
+				           if (stream != null) {
+				             try {
+				               stream.close (); // OK
+				             } catch (java.io.IOException e3) {
+				               System.out.println("I/O Exception");
+				             }
+				           }
+				}
+	}
+	
+	
+	public int ifStream(InputStream stream) {
+		if (stream != null)
+			return 1;
+		else return 0;
+	}
+	
+	private InputStream openStream(String filename){
+		InputStream stream = null;
+		String filenameActual = " ";
+		int aux = 0;
+
+		stream = connessione(filename,stream);
 		// if not online, check to see if the user is asking for a file
 		// whose name isn't properly capitalized. this helps prevent issues
 		// when a sketch is exported to the web, where case sensitivity
@@ -673,41 +745,13 @@ public void errorMethod(String sTagName) {
 					// next see if it's just in this folder
 					file = new File(pApplet.sketchPath, filename);
 				}
-				if (file.exists()){
-					try{
-						String path = file.getCanonicalPath();
-						String filenameActual = new File(path).getName();
-						// if the actual filename is the same, but capitalized
-						// differently, warn the user. unfortunately this won't
-						// work in subdirectories because getName() on a relative
-						// path will return just the name, while 'filename' may
-						// contain part of a relative path.
-						if (filenameActual.equalsIgnoreCase(filename) && !filenameActual.equals(filename)){
-							throw new Exception("This file is named " + filenameActual + " not " + filename + ".");
-						}
-					}catch (IOException e){
-						System.out.println("Error");
-					}
+				if (file.exists())
+					filenameActual = controlloFileEsistente(file,filename);
 					
-				}
 
 				// if this file is ok, may as well just load it
-				try{//mio
-				stream = new FileInputStream(file);
-				if (stream != null) {
-					return stream;
-				}
-				// have to break these out because a general Exception might
-				// catch the RuntimeException being thrown above
-				}finally {
-				           if (stream != null) {
-				             try {
-				               stream.close (); // OK
-				             } catch (java.io.IOException e3) {
-				               System.out.println("I/O Exception");
-				             }
-				           }
-				}
+				stream = caricaFile(stream,file);
+				
 			}catch (IOException ioe){
 				System.out.println("Error");
 			}
@@ -720,77 +764,44 @@ public void errorMethod(String sTagName) {
 			// by default, data files are exported to the root path of the jar.
 			// (not the data folder) so check there first.
 			stream = pApplet.getClass().getResourceAsStream(filename);
-			if (stream != null)
-				return stream;
+			aux = ifStream(stream);
+			if (aux == 1 ) return stream; 
+			
+			
 
 			// hm, check the data subfolder
 			stream = pApplet.getClass().getResourceAsStream("data/" + filename);
-			if (stream != null)
-				return stream;
+			aux = ifStream(stream);
+			if(aux == 1) return stream;
 
 			// attempt to load from a local file, used when running as
 			// an application, or as a signed applet
 			try{ // first try to catch any security exceptions
-				try{
-					File file = new File(pApplet.sketchPath, filename);
-					try{//mio
-						stream = new FileInputStream(file);
-						if (stream != null) {
-							return stream;
-						}
-						// have to break these out because a general Exception might
-						// catch the RuntimeException being thrown above
-						}finally {
-						           if (stream != null) {
-						             try {
-						               stream.close (); // OK
-						             } catch (java.io.IOException e3) {
-						               System.out.println("I/O Exception");
-						             }
-						           }
-						}
-					
+				
+				stream = loadFile(stream,filename,aux );
+				return stream;
+				
 				}catch (Exception e){
 					System.out.println("Error");
 				} // ignored
 
 				try{
-					try{//mio
+					try{
+						//mio
 						stream = new FileInputStream(new File("data", filename));
-						if (stream != null) {
-							return stream;
-						}
+						stream = loadFile(stream,filename,aux );
+						return stream;
 						
-						}finally {
-						           if (stream != null) {
-						             try {
-						               stream.close (); // OK
-						             } catch (java.io.IOException e3) {
-						               System.out.println("I/O Exception");
-						             }
-						           }
-						}
-					
 				}catch (IOException e2){
 					System.out.println("Error");
 				}
 
 				try{
 					try{//mio
-						stream = new FileInputStream(filename);
-						if (stream != null) {
-							return stream;
-						}
 						
-						}finally {
-						           if (stream != null) {
-						             try {
-						               stream.close (); // OK
-						             } catch (java.io.IOException e3) {
-						               System.out.println("I/O Exception");
-						             }
-						           }
-						}
+						stream = new FileInputStream(filename);
+						stream = loadFile(stream,filename,aux );
+						return stream;
 					
 				}catch (IOException e1){
 					System.out.println("Error");
@@ -800,14 +811,17 @@ public void errorMethod(String sTagName) {
 				System.out.println("Error");
 			} // online, whups
 
-			if (stream == null){
+			if (stream == null)
 				throw new IOException("openStream() could not open " + filename);
-			}
-		}catch (Exception e){
+				}catch (Exception e){
 			System.out.println("Error");
 		}
 		return null; // #$(*@ compiler
+	} catch (Exception pippo){
+		System.out.println("Error");
+	} // online, whups
 	}
+	
 
 	/**
 	 * Use this method to load an xml file. If the given String is xml it is
