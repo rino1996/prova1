@@ -1,5 +1,5 @@
- package eeml;
-
+package eeml;
+//ciao
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,6 +65,7 @@ final class XMLInOut{
 	 * @related saveElement ( )
 	 */
 	public XMLElement loadElementFrom(final String documentUrl, final String key){
+		System.out.println(" ");
 		Loader loader;
 		pachubeAPIKey = key;
 		if (documentUrl.startsWith("<?xml")){
