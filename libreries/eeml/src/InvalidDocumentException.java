@@ -10,7 +10,7 @@ package eeml;
  * @nosuperclasses
  */
 
-final class InvalidDocumentException extends RuntimeException{
+final class InvalidDocumentException extends Exception{
     /**
 	 * 
 	 */

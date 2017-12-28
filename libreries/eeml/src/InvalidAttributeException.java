@@ -10,7 +10,7 @@ package eeml;
  * @nosuperclasses
  */
 
-final class InvalidAttributeException extends RuntimeException{
+final class InvalidAttributeException extends Exception{
 
 	/**
 	 * 
