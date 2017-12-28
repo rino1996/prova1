@@ -301,40 +301,40 @@ public class DataOut extends Thread {
 	/**
 	 * Ignore.
 	 */
-	public void run() {
+	public void run() throws InterruptedException{
 		Lock lock = new Lock();
-		try {
+		synchronized(lock) {
 			try {
-				lock.wait();
-			}
-			catch (Exception e) {
-				System.err.println("DataOut: There was a problem sleeping.");
-				System.out.println("Something was wrong");
-			}
-			try {
-				eventMethod.invoke(parent, new Object[] { this } );
-				dataOut.serve();	                        
-			} 
-			catch (Exception e) {
-				System.err.println("Problem running DataOut...");
-				System.out.println("Something was wrong");
-				eventMethod = null;
-			}
-			while (running) { 
-				
-
-				if ((eventMethod != null) & (dataOut.hasClient())) {
+				try {
+					lock.wait();
+				}
+				catch (Exception e) {
+					System.err.println("DataOut: There was a problem sleeping.");
+					System.out.println("Something was wrong");
+				}
+				try {
+					eventMethod.invoke(parent, new Object[] { this } );
+					dataOut.serve();	                        
+				} 
+				catch (Exception e) {
+					System.err.println("Problem running DataOut...");
+					System.out.println("Something was wrong");
+					eventMethod = null;
+				}
+				while (running) { 
 					
+
+					if ((eventMethod != null) & (dataOut.hasClient())) {
+						
+					}
 				}
 
-				
-
+			} catch (Exception e) {
+				System.err.println("DataOut: There was a problem running.");
+				System.out.println("Something was wrong");
 			}
-
-		} catch (Exception e) {
-			System.err.println("DataOut: There was a problem running.");
-			System.out.println("Something was wrong");
 		}
+		
 	}
 
 	/**

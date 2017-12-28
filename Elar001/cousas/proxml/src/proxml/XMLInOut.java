@@ -1,5 +1,5 @@
-package eeml;
-//ciao
+ package eeml;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,7 +65,6 @@ final class XMLInOut{
 	 * @related saveElement ( )
 	 */
 	public XMLElement loadElementFrom(final String documentUrl, final String key){
-		System.out.println(" ");
 		Loader loader;
 		pachubeAPIKey = key;
 		if (documentUrl.startsWith("<?xml")){
@@ -550,13 +549,13 @@ public void errorMethod(String sTagName) {
 			
 			try{
 				xmlEventMethod.invoke(xmlHandler, new Object[] {xmlElement});
-			}catch (IllegalAccessException e){
+			}catch (Exception e){
 				// TODO Auto-generated catch block
 				System.out.println("Something was wrong");
-			}catch (InvocationTargetException e){
+			}catch (Exception e){
 				// TODO Auto-generated catch block
 				System.out.println("Something was wrong");
-			}catch(NullPointerException e){
+			}catch(Exception e){
 				throw new Exception("You need to implement the xmlEvent() function to handle the loaded xml files.");
 			}
 		}

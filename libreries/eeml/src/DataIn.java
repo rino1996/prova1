@@ -242,8 +242,9 @@ public class DataIn extends Thread {
 	/**
 	 * Ignore -- this is where the threads are created.
 	 */
-	public void run() {
+	public void run() throws InterruptedException {
 	Lock lock = new Lock();
+	synchronized (lock) {
 		try {
 
 			dataIn = new In(remoteURL, pachubeAPIKey);
@@ -259,11 +260,15 @@ public class DataIn extends Thread {
 				eventMethod = null;
 			}
 			try {
-				lock.wait();
+				while(lock != null) {
+					lock.wait();
+				}
+				
 			}
 			catch (Exception e) {
 				System.out.println("Descriptive error");//mio
 			}
+			
 			while (running){              
 
 				//System.out.println("Starting update");
@@ -276,9 +281,6 @@ public class DataIn extends Thread {
 				}
 
 				//System.out.println("about to sleep.......");
-
-				
-
 				//System.out.println("finished sleeping......");
 
 			}
@@ -286,6 +288,8 @@ public class DataIn extends Thread {
 		} catch (Exception e) {
 			System.out.println("Descriptive error");//mio
 		}
+	}
+		
 	}
 
 	/**
