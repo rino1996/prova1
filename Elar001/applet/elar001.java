@@ -5,7 +5,6 @@ import de.bezier.data.sql.*;
 import processing.serial.*; 
 
 import java.applet.*;  
-import java.awt.event.FocusEvent; 
 import java.awt.Image; 
 import java.io.*; 
 import java.net.*; 
