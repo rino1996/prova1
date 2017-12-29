@@ -182,7 +182,7 @@ final class Server implements Runnable {
 		    	  System.out.println("DEscription error");//mio
 		      }
 	    while (f == thread) {
-	    
+	    System.out.println(" ");
 	    }  
 	  }
   }
