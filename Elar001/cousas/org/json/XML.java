@@ -258,7 +258,8 @@ public class XML {
     }
     
     public static boolean forMethod(XMLTokener x, Object t, String s, JSONObject o ) {
-    	for (;;) {
+    	int pippo = 1;
+    	while (pippo == 1) {
     		
     		if9Method(t,x);
     		
@@ -341,7 +342,8 @@ public class XML {
     }
     
     public static boolean for2Method(String n, Object t, String s, JSONObject o,  JSONObject context, XMLTokener x) {
-    	 for (;;) {
+    	int pippo = 1; 
+    	while (pippo == 1) {
              t = x.nextContent();
              
              if15Method(n, t, s, o, context, x);

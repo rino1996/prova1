@@ -956,7 +956,8 @@ static class Tagl implements Cloneable{
       }
       
       public void whileMethod(char c, JSONTokener x, String key) {
-      	  for(;;) {
+      	  int pippo = 1;
+    	  while (pippo == 1) {
                 c = x.nextClean(); //prende il carattere successivo della stringa saltando gli spazi bianchi
               
                 switch1(c, x, key);

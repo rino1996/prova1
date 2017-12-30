@@ -157,7 +157,7 @@ public void ifCMethod(XMLTokener x) {
         public static void openTagControlMethod(XMLTokener x,Object token) {
         	
         	token = null;
-            for (;;) {
+            while (token == null) {
                 if (token == null) {
                     token = x.nextToken();
                 }

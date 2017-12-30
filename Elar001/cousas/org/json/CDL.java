@@ -60,7 +60,7 @@ public class CDL {
      * @throws JSONException if the quoted string is badly formed.
      */
 	public static void for1(char c, char q, StringBuffer sb,JSONTokener x ) {//mio
-		for (;;) {
+		while(c == q ) {
     		c = x.next();
     		if (c == q) {
     			break;
@@ -112,7 +112,7 @@ public class CDL {
     }
     }
     public static void for3Method(char c,JSONArray ja,JSONTokener x) {//mio
-    	for (;;) {                
+    	while (c == ',') {                
             if (c == ',') {
                 break;
             }
@@ -127,7 +127,7 @@ public class CDL {
         }
     
     public static  String for2Method( JSONArray ja, JSONTokener x) {//mio prima Object
-    	for (;;) {
+    	while(value == null) {
 			String value = getValue(x);
             char c = x.next();
             if (value == null || 
@@ -210,7 +210,7 @@ public class CDL {
             return null;
         }
         JSONArray ja = new JSONArray();
-        for (;;) {
+        while(jo == null) {
             JSONObject jo = rowToJSONObject(names, x);
             if (jo == null) {
                 break;
