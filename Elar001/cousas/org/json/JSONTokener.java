@@ -217,7 +217,7 @@ public class JSONTokener {
      * @return  A character, or 0 if there are no more characters.
      */
     public char nextClean() throws JSONException {
-        for (;;) {
+        while(c == 0) {
             char c = next();
             if (c == 0 || c > ' ') {
                 return c;
@@ -271,7 +271,8 @@ public class JSONTokener {
            }
     }
     public static void forMethod(char c, String sb) {//mio
-    	for (;;) {
+    	int pippo = 1;
+    	while (pippo == 1) {
             c = next();
             switchMethod(c, sb);
          
@@ -293,7 +294,7 @@ public class JSONTokener {
      */
     public String nextTo(char d) throws JSONException {
         StringBuffer sb = new StringBuffer();
-        for (;;) {
+        while(c == 0) {
             char c = next();
             if (c == d || c == 0 || c == '\n' || c == '\r') {
                 if (c != 0) {
@@ -315,7 +316,7 @@ public class JSONTokener {
     public String nextTo(String delimiters) throws JSONException {
         char c;
         StringBuffer sb = new StringBuffer();
-        for (;;) {
+        while (c == 0) {
             c = next();
             if (delimiters.indexOf(c) >= 0 || c == 0 ||
                     c == '\n' || c == '\r') {
