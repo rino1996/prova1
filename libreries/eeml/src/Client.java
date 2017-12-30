@@ -49,7 +49,14 @@ final class Client implements Runnable {
 	InputStream input;
 	OutputStream output;
 
-	byte buffer[] = new byte[32768];
+	private final static int BUFFER_SIZE=32768;//mio
+    public static byte[] createNewBuffer() {
+      try {
+        return new byte[BUFFER_SIZE];
+      } catch (OutOfMemoryError error) { 
+        return new byte[0];
+        }
+    }
 	int bufferIndex;
 	int bufferLast;
 
@@ -306,7 +313,7 @@ final class Client implements Runnable {
 	 * readBytes(byte b[]) (see below).
 	 */
 	public byte[] readBytes() {
-		if (bufferIndex == bufferLast) return null;
+		if (bufferIndex == bufferLast) return new byte[0];//vincenza
 
 		synchronized (buffer) {
 			int length = bufferLast - bufferIndex;
@@ -353,7 +360,7 @@ final class Client implements Runnable {
 	 * the serial buffer, then 'null' is returned.
 	 */
 	public byte[] readBytesUntil(int interesting) {
-		if (bufferIndex == bufferLast) return null;
+		if (bufferIndex == bufferLast) return new byte[0];//vincenza
 		byte what = ' ';//mio
 
 		synchronized (buffer) {
@@ -364,7 +371,7 @@ final class Client implements Runnable {
 					break;
 				}
 			}
-			if (found == -1) return null;
+			if (found == -1) return new byte[0];//vincenza
 
 			int length = found - bufferIndex + 1;
 			byte outgoing[] = new byte[length];

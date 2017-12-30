@@ -276,9 +276,7 @@ public class DataIn extends Thread {
 				//System.out.println("Finished update");
 
 				
-				if (eventMethod != null) {
 				
-				}
 
 				//System.out.println("about to sleep.......");
 				//System.out.println("finished sleeping......");

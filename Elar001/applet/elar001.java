@@ -1,11 +1,6 @@
 import processing.core.*; 
-import processing.xml.*; 
-//kk
-import de.bezier.data.sql.*; 
-import processing.serial.*; 
-
 import java.applet.*;  
-import java.awt.Image; 
+ 
 import java.io.*; 
 import java.net.*; 
 import java.text.*; 
@@ -22,9 +17,9 @@ import java.util.regex.*;
 * @since 
 * @version 
 */
-public class elar001 extends PApplet {
+final public class elar001 extends PApplet {
 
-	static class elarAttr{
+	 private  class elarAttr{
 		
 		int width_default=800;
 		int height_default=600;
@@ -48,7 +43,7 @@ public class elar001 extends PApplet {
 		int button_height=35;
 		int button_width_min=38;
 		int button_height_min= 0;
-		int button_height = 0;
+		int button_height1 = 0;
 
 		//init button positions
 		int button_x=10;

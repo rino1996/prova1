@@ -269,7 +269,7 @@ final class Null {
     public static String[] getNames(JSONObject jo) {
         int length = jo.length();
         if (length == 0) {
-            return null;
+            return new String[0];
         }
         Iterator i = jo.keys();
         String[] names = new String[length];
@@ -289,13 +289,13 @@ final class Null {
      */
     public static String[] getNames(Object object) {
         if (object == null) {
-            return null;
+            return new String[0];//vincenza
         }
         Class klass = object.getClass();
         int[] fields = klass.getFields();
         int length = fields.length;
         if (length == 0) {
-            return null;
+            return new String[0];//vincenza
         }
         String[] names = new String[length];
         for (int i = 0; i < length; i += 1) {
@@ -353,7 +353,7 @@ final class Null {
     }
     }
 
-static class Tagl {
+static class Tagl implements Cloneable{
 	
 
     /**
@@ -420,7 +420,16 @@ static class Tagl {
      */
     
     public class EQLFIXED{
+    	
+    	/**
+    	 * la funzione dichiara il tipo di value.
+    	 * value del tipo intero
+    	 * @param value
+    	 * @return null
+    	 */
     	public int value;//mio
+    	
+    	
     public boolean equals(Object o) { if (o instanceof EQLFIXED) {
 
   	 // if (getClass () != obj.getClass ()) { 
