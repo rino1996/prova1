@@ -17,14 +17,7 @@ import java.util.regex.*;
 * @since 
 * @version 
 */
-final public class elar001 extends PApplet {
-<<<<<<< .mine
-
-	 public  class elarAttr{
-||||||| .r76
-
-	static class elarAttr{
-=======
+public class elar001 extends PApplet {
 	
 	/**
 	 * 
@@ -32,29 +25,11 @@ final public class elar001 extends PApplet {
 	 * @classe elarAttr
 	 */
 	final public class elarAttr{
->>>>>>> .r77
 		
-		final int width_default=800;
-		final int height_default=600;
+		int width_default=800;
+		int height_default=600;
 
 		//colors zone
-<<<<<<< .mine
-		final int white_color = color(255, 255, 255);
-		final int yellow_color = color(242, 204, 47);
-		final int black_color = color(0,0,0);
-		final int red_color_01 = color(255,0,125);
-		final int red_color_02 = color(255,0,0);
-		final int green_color = color(125,255,0);
-		final int blue_color = color (0,0, 255);
-||||||| .r76
-		int white_color = color(255, 255, 255);
-		int yellow_color = color(242, 204, 47);
-		int black_color = color(0,0,0);
-		int red_color_01 = color(255,0,125);
-		int red_color_02 = color(255,0,0);
-		int green_color = color(125,255,0);
-		int blue_color = color (0,0, 255);
-=======
 		int ab=255;
 		int ac=242;
 		int aa=204;
@@ -67,66 +42,41 @@ final public class elar001 extends PApplet {
 		int red_color_02 = color(ab,0,0);//qui
 		int green_color = color(ae,ab,0);//qui
 		int blue_color = color (0,0, ab);//qui
->>>>>>> .r77
 
 		//color button
-<<<<<<< .mine
-		final int button_gray_color=color(204);
-		final int button_on_gray_color=color(255);
-		final int button_press_gray_color=color(0);
-||||||| .r76
-		int button_gray_color=color(204);
-		int button_on_gray_color=color(255);
-		int button_press_gray_color=color(0);
-=======
 		int color = 204;
 		int button_gray_color=color(color);
 		int color1= 255;
 		int button_on_gray_color=color(color1);
 		int button_press_gray_color=color(0);
->>>>>>> .r77
 
 		//size button
-<<<<<<< .mine
-		final int button_width=135;
-		final int button_height=35;
-		final int button_width_min=38;
-		final int button_height_min= 0;
-		final int button_height1 = 0;
-||||||| .r76
-		int button_width=135;
-		int button_height=35;
-		int button_width_min=38;
-		int button_height_min= 0;
-		int button_height = 0;
-=======
 		int button_width=135;
 		int button_height=35;
 		int button_width_min=38;
 		int button_height_min= 0;
 		int button_height1 = 0;//mio
->>>>>>> .r77
 
 		//init button positions
-		final int button_x=10;
-		final int button_y=60;
-		final int button_separation=10;
-		final int button_x_min=20;
-		final int button_reviser=6;
-		final int button_x_lang=width_default-150;
-		final int button_y_lang=4;
-		final int button_lang_separation=5;
-		final int button_lang_adjustment=0;
+		int button_x=10;
+		int button_y=60;
+		int button_separation=10;
+		int button_x_min=20;
+		int button_reviser=6;
+		int button_x_lang=width_default-150;
+		int button_y_lang=4;
+		int button_lang_separation=5;
+		int button_lang_adjustment=0;
 
 		//que bot\u00f3n est\u00e1 seleccionado?
-		final boolean bos_en=false;
-		final boolean bos_es=false;
-		final boolean bos_gl=false;
-		final boolean bos_home=false;
-		final boolean bos_about_us=true;
-		final boolean bos_services=false;
-		final boolean bos_proyects=false;
-		final boolean bos_contact=false;
+		boolean bos_en=false;
+		boolean bos_es=false;
+		boolean bos_gl=false;
+		boolean bos_home=false;
+		boolean bos_about_us=true;
+		boolean bos_services=false;
+		boolean bos_proyects=false;
+		boolean bos_contact=false;
 
 	}
 	
