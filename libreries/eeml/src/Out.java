@@ -16,6 +16,9 @@ import java.net.HttpURLConnection;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
+
+import javax.net.ssl.SSLException;
 
 
 /**
@@ -61,7 +64,7 @@ public class Out {
 
 	public Out (PApplet parent) { 
 
-		this.parent = parent;
+		PApplet parent1 = parent;
 		localEnvironment = new XMLElement("environment");
 		incomingMsg = null;		
 		
@@ -285,8 +288,8 @@ public class Out {
 		int rCode; 
 		try{
 		    
-			HttpURLConnection hpcon = new URL (urlstr).openConnection();            
-			hpcon.setRequestMethod("PUT");
+			URLConnection hpcon = new URL (urlstr).openConnection();            
+			((HttpURLConnection) hpcon).setRequestMethod("PUT");
 			hpcon.setRequestProperty("Content-Length", "" + Integer.toString(parameters.getBytes().length));
 			hpcon.setRequestProperty ("X-PachubeApiKey", pachubeAPIKey);        
 
@@ -301,9 +304,9 @@ public class Out {
 			printout.flush ();
 			printout.close ();
 
-			rCode = hpcon.getResponseCode();
-			return hpcon.getContent();		
-		} catch((SSLException  e){
+			rCode = ((HttpURLConnection) hpcon).getResponseCode();
+			return (int) hpcon.getContent();		
+		} catch(Exception  e){
 			 logSecurityIssue(e); //
 		      terminateInsecureConnection();
 			System.out.println("There was a problem while updating the Pachube resource: " + e);

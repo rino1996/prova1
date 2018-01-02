@@ -18,13 +18,27 @@ import java.util.regex.*;
 * @version 
 */
 final public class elar001 extends PApplet {
+<<<<<<< .mine
 
 	 public  class elarAttr{
+||||||| .r76
+
+	static class elarAttr{
+=======
+	
+	/**
+	 * 
+	 * @author utente
+	 * @classe elarAttr
+	 */
+	final public class elarAttr{
+>>>>>>> .r77
 		
 		final int width_default=800;
 		final int height_default=600;
 
 		//colors zone
+<<<<<<< .mine
 		final int white_color = color(255, 255, 255);
 		final int yellow_color = color(242, 204, 47);
 		final int black_color = color(0,0,0);
@@ -32,18 +46,66 @@ final public class elar001 extends PApplet {
 		final int red_color_02 = color(255,0,0);
 		final int green_color = color(125,255,0);
 		final int blue_color = color (0,0, 255);
+||||||| .r76
+		int white_color = color(255, 255, 255);
+		int yellow_color = color(242, 204, 47);
+		int black_color = color(0,0,0);
+		int red_color_01 = color(255,0,125);
+		int red_color_02 = color(255,0,0);
+		int green_color = color(125,255,0);
+		int blue_color = color (0,0, 255);
+=======
+		int ab=255;
+		int ac=242;
+		int aa=204;
+		int ad=47;
+		int ae=125;
+		int white_color = color(ab, ab, ab);//qui
+		int yellow_color = color(ac, aa, ad);//qui
+		int black_color = color(0,0,0);
+		int red_color_01 = color(ab,0,ae);//qui
+		int red_color_02 = color(ab,0,0);//qui
+		int green_color = color(ae,ab,0);//qui
+		int blue_color = color (0,0, ab);//qui
+>>>>>>> .r77
 
 		//color button
+<<<<<<< .mine
 		final int button_gray_color=color(204);
 		final int button_on_gray_color=color(255);
 		final int button_press_gray_color=color(0);
+||||||| .r76
+		int button_gray_color=color(204);
+		int button_on_gray_color=color(255);
+		int button_press_gray_color=color(0);
+=======
+		int color = 204;
+		int button_gray_color=color(color);
+		int color1= 255;
+		int button_on_gray_color=color(color1);
+		int button_press_gray_color=color(0);
+>>>>>>> .r77
 
 		//size button
+<<<<<<< .mine
 		final int button_width=135;
 		final int button_height=35;
 		final int button_width_min=38;
 		final int button_height_min= 0;
 		final int button_height1 = 0;
+||||||| .r76
+		int button_width=135;
+		int button_height=35;
+		int button_width_min=38;
+		int button_height_min= 0;
+		int button_height = 0;
+=======
+		int button_width=135;
+		int button_height=35;
+		int button_width_min=38;
+		int button_height_min= 0;
+		int button_height1 = 0;//mio
+>>>>>>> .r77
 
 		//init button positions
 		final int button_x=10;
@@ -100,7 +162,9 @@ PFont font;
 
 MySQL msql;
 
-Button b_en, b_es, b_gl;
+Button b_en; 
+Button b_es;
+Button b_gl;
 
 Check[] check;
 
@@ -169,7 +233,8 @@ public void setup() {
    //ler no porto serie
    //por si acaso fallase temos a lista para saber que porto e
    println(Serial.list());
-   myPort = new Serial(this, Serial.list()[0], 19200);
+   int af=19200;
+   myPort = new Serial(this, Serial.list()[0], af);
 
    // read bytes into a buffer until you get a linefeed (ASCII 10):
    myPort.bufferUntil('\n');
@@ -199,11 +264,17 @@ public void setup() {
    numberPanels(); 
 
    check = new Check[1];
-   check[0] = new Check(200, 240, 50, color(0));
+   int ag=200;
+   int ah=240;
+   int ai=50;
+   check[0] = new Check(ag, ah, ai, color(0));
    
    scrollbar = new Scrollbar[1];
    draggingSlider = new boolean[1];
-   scrollbar[0] = new Scrollbar(200, 350, 80, 10, -40.0f, 50.0f);
+   int ba=350;
+   int bb=80;
+   int bc=10; 
+   scrollbar[0] = new Scrollbar(ag, ba, bb, bc, -40.0f, 50.0f);
    draggingSlider[0]=false;
 
    
@@ -211,7 +282,9 @@ public void setup() {
 
 
 public void draw() {
- 
+	int ai=50;
+	int bc=10;
+	int v=33;
   rule = new Rule();
   
   background(yellow_color);
@@ -221,22 +294,27 @@ public void draw() {
   //header
   fill(0);
   stroke(0);
-  rect(0,0,width_default,50);
-  textSize(30);
+  rect(0,0,width_default,ai);
+  int text=30;
+  textSize(text);
   fill(white_color);
-  text(l_page_title[lang],10,33); 
+  text(l_page_title[lang],bc,v); 
   
   //slogan
-  textSize(18);
-  text("["+l_slogan[lang]+"]", 250, 30); 
+  int text1=18;
+  textSize(text1);
+  int h=250;
+  int z=30;
+  text("["+l_slogan[lang]+"]", h, z); 
   
   //the footer
   fill(black_color);
-  textSize(11);
-  text(l_footer[lang]+" "+y, 10,height_default-20);
+  int text2=11;
+  textSize(text2);
+  text(l_footer[lang]+" "+y,bc,height_default-20);
   
   //lang buttons
-  textSize(18);
+  textSize(text1);
   
   
   
@@ -249,35 +327,34 @@ public void draw() {
    switch (section) { 
      case 0: //about us
       show_about_us();
-      int last_number=panel.length-1;
      break;
      default: 
     	 System.out.println(" ");
     	 break;
     }
-  
-  
-    
-  
-  
-  
-  text(despription_panel[section], 200, 80);
+  int u= 360;
+  int xa=270;
+  int yy=350;  
+  int xx=100;
+  int y=80;
+  int x=200;
+  text(despription_panel[section], x, y);
   
   initButtons();
   
   bulb = new Bulb[1];
-  bulb[0] = new Bulb(false,"Bombilla tipo",200, 100, 80, 80);
+  bulb[0] = new Bulb(false,"Bombilla tipo",x, xx, y, y);
   
   if (section==1) {
     bulb[0].display();
     check[0].display();
     boolean pos0=check[0].checked;
-    text(check[0].escribe(pos0),350, 270);
+    text(check[0].escribe(pos0),yy, xa);
     pos = new int[1];
     pos[0] = PApplet.parseInt(scrollbar[0].getPos()); 
     scrollbar[0].update(mouseX, mouseY); 
     scrollbar[0].display(); 
-    text(nf(pos[0], 3)+" \u00baC", 350, 360);
+    text(nf(pos[0], 3)+" \u00baC", yy, u);
   }
   
   if (section==2) {
@@ -294,19 +371,13 @@ public void draw() {
           double default_value=msql.getDouble("default_value");
           String name_device=msql.getString( "name") ;  
           String description_device=msql.getString( "description") ;  
-          text(name_device+" "+id_device+" "+description_device+" valor: "+default_value,200,120+h*i);
+          text(name_device+" "+id_device+" "+description_device+" valor: "+default_value,x,120+h*i);
           
           i++;
         }
         
     }
-  }
-  
-  
- 
-  
-   
-  
+  }  
 }
 
 public void mousePressed() { 
@@ -447,20 +518,22 @@ public void serialEvent(Serial myPor) {
 
 
 //as imaxes
-PImage img00, img01;
+PImage img00;
+PImage img01;
 
 public void show_about_us() {
-  
-   textSize(16);
+	int text3=16;
+   textSize(text3);
    fill(white_color);
 
    img00=loadImage("logo_wg.jpg");
    img01=loadImage("logo_bdunk.jpg");
-
-   image(img00, 170, 60, 190, 35);
-   image(img01, 170, 120, 175, 75);
- 
-   text(l_text_about_us[lang], 170, 220); 
+   int gg=170; int aiu=120; int yu= 175; int hg=75;
+   int hh=60; int uu=190; int ii=35;
+   image(img00, gg, hh, uu, ii);
+   image(img01, gg, aiu, yu, hg);
+   int sa=220;
+   text(l_text_about_us[lang], gg, sa); 
     
 }
 PImage img;
@@ -501,7 +574,8 @@ class Bulb {
   
 }
 class Button { 
-  int x, y; // The x- and y-coordinates 
+  int x;
+  int y; // The x- and y-coordinates 
   int xsize; // Dimension (width) 
   int ysize; // Dimension (width) 
   int baseGray; // Default gray value 
@@ -557,14 +631,16 @@ class Button {
     if (on_section == true) {
       fill(overGray);
     }
-    stroke(255); 
+    int a=255;
+    stroke(a); 
     rect(x, y, xsize, ysize); 
     fill(0);
     text(texto_boton, x+5, y+(ysize/2)+corrector);
   } 
 } 
 class Check { 
-  int x, y; // The x- and y-coordinates 
+  int x;
+  int y; // The x- and y-coordinates 
   int size; // Dimension (width and height) 
   int baseGray; // Default gray value 
   boolean checked = false; // True when the check box is selected 
@@ -582,7 +658,8 @@ class Check {
   } 
 // Draws the box and an X inside if the checked variable is true 
   public void display() { 
-    stroke(255); 
+	  int b= 255;
+    stroke(b); 
     fill(baseGray); 
     rect(x, y, size, size); 
     if (checked == true) { 
@@ -604,14 +681,18 @@ class Check {
 //l_test={"", "", ""},
 
 String[]
-l_page_title={"eLAR Project", "Proxecto eLAR", "Proyecto eLAR"},
-l_slogan={"Free Domotic System", "Sistema Dom\u00f3tico Libre", "Sistema Dom\u00f3tico Libre"},
+l_page_title={"eLAR Project", "Proxecto eLAR", "Proyecto eLAR"};
+String[]
+l_slogan={"Free Domotic System", "Sistema Dom\u00f3tico Libre", "Sistema Dom\u00f3tico Libre"};
+String[]
 l_footer={
   "eLAR [visit hardprocessing.org] | this panel is make with processing [visit processing.org] | (c) wireless galicia, bdunk",
   "eLAR [visite hardprocessing.org] | este panel est\u00e1 feito con processing [visite processing.org] | (c) wireless galicia, bdunk",
   "eLAR [visite hardprocessing.org] | este panel est\u00e1 hecho con processing [visite processing.org] | (c) wireless galicia, bdunk"
-},
-l_about_us={"About us", "Sobre n\u00f3s", "Acerca de"},
+};
+String[]
+l_about_us={"About us", "Sobre n\u00f3s", "Acerca de"};
+String[]
 l_text_about_us={"We are a group of restless minds", "Somos un grupo de mentes inquietas", "Somos un grupo de mentes inquietas"}
 ;
 public static void switchMethod(int stop, int default_value, float value, int operator) {//mio
@@ -639,7 +720,6 @@ public static void whileMethod() {//mio
          msql.query( "SELECT * FROM conditions WHERE id_rule="+id_rule );
          
          //por defecto a regra non se cumpre
-         int make_rule=0;
          int stop=0;
          while (msql.next()) {
            
@@ -701,13 +781,17 @@ class Rule {
   
 }
 class Scrollbar { 
-  int x, y; // The x- and y-coordinates 
-  float sw, sh;  // Width and height of scrollbar 
+  int x;
+  int y; // The x- and y-coordinates 
+  float sw;
+  float sh;  // Width and height of scrollbar 
   float pos; // Position of thumb 
-  float posMin, posMax; // Max and min values of thumb 
+  float posMin;
+  float posMax; // Max and min values of thumb 
   boolean rollover; // True when the mouse is over 
   boolean locked; // True when its the active scrollbar 
-  float minVal, maxVal;  // Min and max values for the thumb 
+  float minVal;
+  float maxVal;  // Min and max values for the thumb 
   Scrollbar (int xp, int yp, int w, int h, float miv, float mav) { 
     x = xp; 
     y = yp; 
@@ -721,7 +805,8 @@ class Scrollbar {
   } 
 // Updates the over boolean and the position of the thumb 
   public void update(int mx, int my) { 
-    if (over(mx, my) == true) { 
+	  boolean pp=over(mx, my);//mio
+    if (pp == true) { 
       rollover = true; 
     } else { 
       rollover = false; 
@@ -752,12 +837,15 @@ class Scrollbar {
   } 
 // Draws the scrollbar to the screen 
   public void display() { 
-    fill(255); 
+	  int c=255;
+    fill(c); 
     rect(x, y, sw, sh); 
     if ((rollover==true) || (locked==true)) { 
-      fill(0); 
+    	int d=0;
+      fill(d); 
     } else { 
-      fill(102); 
+    	int e=102;
+      fill(e); 
     } 
     rect(pos, y, sh, sh); 
   } 
@@ -769,7 +857,7 @@ class Scrollbar {
     return offset; 
   } 
 }
-  static public void main(String args[]) {
+  static public void main(String[] args) {
     PApplet.main(new String[] { "--present", "--bgcolor=#666666", "--stop-color=#cccccc", "elar001" });
   }
 }

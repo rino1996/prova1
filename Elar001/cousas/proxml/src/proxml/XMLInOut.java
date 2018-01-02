@@ -1,4 +1,6 @@
- package eeml;
+package eeml;
+
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,7 +10,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Hashtable;
@@ -98,17 +99,18 @@ final class XMLInOut{
 		}
 	}
 	static String getSource(){
-		char iChar;//mio int 
-		StringBuffer result = new StringBuffer();
+		int iChar;//mio int 
+		StringBuffer result1 = new StringBuffer();
+		BufferedReader keep;
 		iChar = keep.read();
 		try{
 			while (iChar != -1){
-				result.append(iChar);//mio
+				result1.append(iChar);//mio
 			}
 		}catch (Exception e){
 			return ("fails");
 		}
-		return result.toString();
+		return result1.toString();
 	}
 	/**
 	 * Parses a given String and gives back box with the parsed Element and the
@@ -118,22 +120,24 @@ final class XMLInOut{
 	 */
 	public XMLElement parseDocument(Reader doc){
 
-		firstTag = true;
-		rootNode = true;
+		boolean firstTag = true;
+		boolean rootNode = true;
 		
 		int aux = 0;
-		char iChar; //keeps the int value of the current char
-		char cChar; //keeps the char value of the current char
+		int iChar; //keeps the int value of the current char
+		int cChar; //keeps the char value of the current char
 
 		String sbText = " "; //StringBuffer to parse words in
 		boolean bText = false; //has a word been parsed
+		BufferedReader document;
 		iChar = document.read();
 		try{
 			while (iChar != -1){ //as long there is something to read
 				cChar = iChar; //get the current char value
 				switch (cChar){ //check the char value
 					case '\n':
-						line++;
+					int line;
+					line++;
 						break;
 					case '\f':
 						break;
@@ -151,7 +155,7 @@ final class XMLInOut{
 						iChar = document.read();
 						if (iChar != -1){ //check the next sign...
 							cChar = iChar; //get its char value..
-							 aux = cCharControl(cChar, iChar);
+							 aux = cCharControl(cChar, iChar, document);
 						}
 						if (aux ==0)
 						document = handleStartTag(document, new StringBuffer().append(cChar));
@@ -177,7 +181,7 @@ final class XMLInOut{
 	}
 	
 	
-	public int cCharControl(char cChar, char iChar)	{
+	public int cCharControl(int cChar, int iChar, BufferedReader document)	{
 		
 		if (cChar == '/'){ //in this case we have an end tag
 			document = handleEndTag(result, document); // and handle it
@@ -220,9 +224,9 @@ final class XMLInOut{
 		/**
 		 * Object handling the incoming XML
 		 */
-		Object xmlHandler;
+		String xmlHandler;
 
-		Loader(final Reader i_document, final Object i_xmlHandler){
+		Loader(final Reader i_document, final String i_xmlHandler){
 			document = i_document;
 			xmlHandler = i_xmlHandler;
 		}
@@ -277,11 +281,12 @@ final class XMLInOut{
 
 			throw new Exception("Error in line:"+line);
 		}
-		public Reader whileMethodControl(Reader page, StringBuffer alreadyParsed,int iChar,char cChar,
+		public Reader whileMethodControl(Reader page, StringBuffer alreadyParsed,int iChar,int cChar,
 				boolean bTagName,boolean bSpaceBefore, boolean bLeftAttribute,StringBuffer sbTagName,
-				String sbAttributeValue,StringBuffer sbActual,Hashtable attributes,
-				boolean inValue,char oChar) {
+				String sbAttributeValue,String sbActual,Hashtable attributes,
+				boolean inValue,int oChar) {
 			cChar = iChar;
+			String sbAttributeName;
 			switch (cChar){
 				case ' ':
 					if ((!bSpaceBefore) && (!inValue) &&  (bTagName) )
@@ -336,10 +341,10 @@ final class XMLInOut{
 							result = new XMLElement(sTagName, attributes);
 							actualElement = result;
 						}else{
-							XMLElement keep = new XMLElement(sTagName, attributes);
-							actualElement.addChild(keep);
+							XMLElement keep1 = new XMLElement(sTagName, attributes);
+							actualElement.addChild(keep1);
 							if (oChar != '/')
-								actualElement = keep;
+								actualElement = keep1;
 						}
 					}
 					break;
@@ -366,12 +371,12 @@ public void errorMethod(String sTagName) {
 		public Reader handleEndTag(XMLElement xmlEl, Reader toP) throws Exception{
 			Reader toParse;
 			int iChar;
-			char cChar;
+			int cChar;
 			iChar = toParse.read();
 			while (iChar != -1){
 				
 				cChar = iChar;
-				toParse = switchMethodEnd(cChar, toParse);
+				toParse = switchMethodEnd((char) cChar, toParse);
 			}
 			return toParse;
 			throw new Exception("Error in line:"+line);
@@ -408,8 +413,8 @@ public void errorMethod(String sTagName) {
 		 */
 		public Reader handleComment(Reader toParse) throws Exception{
 			int iChar;
-			char cChar;
-			char prevChar = ' ';
+			int cChar;
+			int prevChar = ' ';
 			iChar = toParse.read();
 			while (iChar != -1){
 				cChar = iChar;
@@ -430,8 +435,8 @@ public void errorMethod(String sTagName) {
 		 */
 		public Reader handleDoctypeSection(Reader toParse) throws Exception{
 			int iChar;
-			char cChar;
-			char prevChar = ' ';
+			int cChar;
+			int prevChar = ' ';
 			
 			boolean entities = false;
 			iChar = toParse.read();
@@ -457,14 +462,14 @@ public void errorMethod(String sTagName) {
 		 */
 		public Reader handleEntity(Reader toParse, final StringBuffer stringBuffer) throws Exception{
 			int iChar;
-			char cChar;
+			int cChar;
 			final StringBuffer result = new StringBuffer();
 			int counter = 0;
 			iChar = toParse.read();
 			while (iChar != -1){
 				cChar = iChar;
 				result.append(cChar);
-				stringBuffer = stringBufferMethod(cChar,stringBuffer,  result);
+				stringBuffer = stringBufferMethod((char) cChar,stringBuffer,  result);
 				
 					break;
 				}
@@ -502,18 +507,18 @@ public void errorMethod(String sTagName) {
 		public Reader handleCDATASection(Reader toParse) throws Exception{
 			int iChar;
 			char cChar;
-			StringBuffer result = new StringBuffer();
+			String result = " ";
 			int counter = 0;
 			boolean checkedCDATA = false;
-			XMLElement keep = new XMLElement(result.toString());
+			XMLElement keep2 = new XMLElement(result.toString());
 			iChar = toParse.read();
 			while (iChar != -1){
-				cChar = iChar;
+				cChar = (char) iChar;
 				if (cChar == ']'){
 					
-					keep.cdata = true;
-					keep.pcdata = true;
-					actualElement.addChild(keep);
+					keep2.cdata = true;
+					keep2.pcdata = true;
+					actualElement.addChild(keep2);
 					break;
 				}
 				result.append(cChar);
@@ -581,7 +586,7 @@ public void errorMethod(String sTagName) {
 	 * Parent PApplet instance
 	 */
 	private final PApplet pApplet;
-	private final Object parent;
+	private final String parent;
 
 	/**
 	 * Method to call when xml is loaded
@@ -601,7 +606,7 @@ public void errorMethod(String sTagName) {
 	 * @param pApplet PApplet, the Applet proXML is running in
 	 * @param i_parent Object, the object that contains the xmlEvent function
 	 */
-	public XMLInOut(final PApplet pApplet, final Object i_parent){
+	public XMLInOut(final PApplet pApplet, final String i_parent){
 		this.pApplet = pApplet;
 		parent = i_parent;
 
@@ -717,7 +722,11 @@ public void errorMethod(String sTagName) {
 				             }
 				           }
 				}
+	} catch (java.io.IOException e4) {
+		System.out.println("I/O Exception");
 	}
+	}
+
 	
 	
 	public int ifStream(InputStream stream) {

@@ -1,11 +1,11 @@
 //mio
-package org.json;
 
 
-import prova.JSONArray;
-import prova.JSONException;
-import prova.JSONObject;
-import prova.JSONTokener;
+
+import JSONArray;
+import JSONException;
+import JSONObject;
+import JSONTokener;
 
 /*
 Copyright (c) 2002 JSON.org
