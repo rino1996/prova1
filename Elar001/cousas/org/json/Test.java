@@ -9,9 +9,10 @@ import java.io.StringWriter;
  * Test class. This file is not formally a member of the org.json library.
  * It is just a casual test tool.
  */
+
+//empty point
 public class Test {
-	
-   //empty point
+
 	public static String objMethod() {
 		class Obj implements JSONString {
 			/**
@@ -64,89 +65,101 @@ public class Test {
         } 
 	}
 	public static void try1Method(JSONArray a) {//mio
+		String stampa = "Something was wrong ";
+		String eccezione = "Exception";
 		try {
             a = new JSONArray("[\n\r\n\r}");
             System.out.println(a.toString());
         } catch (Exception e) {
-            System.out.println("Something was wrong");
+            System.out.println(stampa);
         }
         
-        System.out.print("Exception: ");
+        System.out.print(eccezione);
         try {
             a = new JSONArray("<\n\r\n\r      ");
             System.out.println(a.toString());
         } catch (Exception e) {
-            System.out.println("Something was wrong");
+            System.out.println(stampa);
         } 
         
-        System.out.print("Exception: ");
+        System.out.print(eccezione);
         try {
             a = new JSONArray();
             a.put(Double.NEGATIVE_INFINITY);
             a.put(Double.NaN);
             System.out.println(a.toString());
         } catch (Exception e) {
-            System.out.println("Something was wrong");
+            System.out.println(stampa);
         }
 	}
 	public static void try2Method(JSONObject j) {//mio
-		 System.out.print("Exception: ");
+		String stampa = "Something was wrong ";
+		String eccezione = "Exception";
+		String howard = "howard";
+		String stooge = j.getDouble("stooge");
+		 System.out.print(eccezione);
          try {
-             System.out.println(j.getDouble("stooge"));
+             System.out.println(stooge);
          } catch (Exception e) {
-             System.out.println("Something was wrong");
+             System.out.println(stampa);
          }
-         System.out.print("Exception: ");
+         System.out.print(eccezione);
          try {
-             System.out.println(j.getDouble("howard"));
+             System.out.println(j.getDouble(howard));
          } catch (Exception e) {
-             System.out.println("Something was wrong");
+             System.out.println(stampa);
          }
-         System.out.print("Exception: ");
+         System.out.print(eccezione);
          try {
-             System.out.println(j.put(null, "howard"));
+             System.out.println(j.put(null, howard));
          } catch (Exception e) {
-             System.out.println("Something was wrong");
+             System.out.println(stampa);
          }
 	}
 	public static void try3Method(JSONArray a) {//mio
-		 System.out.print("Exception: ");
+		String stampa = "Something was wrong ";
+		String eccezione = "Exception";
+		
+		 System.out.print(eccezione);
          try {
              System.out.println(a.getDouble(0));
          } catch (Exception e) {
-             System.out.println("Something was wrong");
+             System.out.println(stampa);
          }
-         System.out.print("Exception: ");
+         System.out.print(eccezione);
          try {
              System.out.println(a.get(-1));
          } catch (Exception e) {
-             System.out.println("Something was wrong");
+             System.out.println(stampa);
          }
-         System.out.print("Exception: ");
+         System.out.print(eccezione);
          try {
              System.out.println(a.put(Double.NaN));
          } catch (Exception e) {
-             System.out.println("Something was wrong");
+             System.out.println(stampa);
          }
 	}
 	public static void try4Method(JSONObject j) {//mio
-		 System.out.print("Exception: ");
+		String stampa = "Something was wrong ";
+		String eccezione = "Exception";
+		
+		System.out.print(eccezione);
          try {
          	j = XML.toJSONObject("<a><b>    ");
          } catch (Exception e) {
-         	System.out.println("Something was wrong");
+         	System.out.println(stampa);
          }            
-         System.out.print("Exception: ");
+         System.out.print(eccezione);
          try {
          	j = XML.toJSONObject("<a></b>    ");
          } catch (Exception e) {
-         	System.out.println("Something was wrong");
+         	System.out.println(stampa);
          }            
-         System.out.print("Exception: ");
+         System.out.print(eccezione);
          try {
          	j = XML.toJSONObject("<a></a    ");
          } catch (Exception e) {
-         	System.out.println("Something was wrong");
+         	System.out.println(stampa);
          }
 	}
 	public static void try5Method(JSONArray ja,String s,JSONArray a) {//mio
@@ -216,6 +229,9 @@ public class Test {
 	}
 	public static void tryMethod(String s,JSONArray a,JSONObject j,String o, JSONStringers jj) {//mio
 		try {     
+			
+			String vero = " ";
+			String Long = "long";
             s = "[0.1]";
             a = new JSONArray(s);
             System.out.println(a.toString());
@@ -232,7 +248,7 @@ public class Test {
             System.out.println(j.toString());
             System.out.println("");
            
-            j = new JSONObject();
+           
             j.increment("two");
             j.increment("two");
             System.out.println(j.toString());
@@ -251,7 +267,7 @@ public class Test {
             System.out.println(XML.toString(j));
                     
             s = "<recipe name=\"bread\" prep_time=\"5 mins\" cook_time=\"3 hours\"> <title>Basic bread</title> <ingredient amount=\"8\" unit=\"dL\">Flour</ingredient> <ingredient amount=\"10\" unit=\"grams\">Yeast</ingredient> <ingredient amount=\"4\" unit=\"dL\" state=\"warm\">Water</ingredient> <ingredient amount=\"1\" unit=\"teaspoon\">Salt</ingredient> <instructions> <step>Mix all ingredients together.</step> <step>Knead thoroughly.</step> <step>Cover with a cloth, and leave for one hour in warm room.</step> <step>Knead again.</step> <step>Place in a bread baking tin.</step> <step>Cover with a cloth, and leave for one hour in warm room.</step> <step>Bake in the oven at 180(degrees)C for 30 minutes.</step> </instructions> </recipe> ";
-            j = XML.toJSONObject(s);
+          
             System.out.println(j.toString(4));
             System.out.println();
             
@@ -266,25 +282,25 @@ public class Test {
             System.out.println();
             
             s = "<div id=\"demo\" class=\"JSONML\"><p>JSONML is a transformation between <b>JSON</b> and <b>XML</b> that preserves ordering of document features.</p><p>JSONML can work with JSON arrays or JSON objects.</p><p>Three<br/>little<br/>words</p></div>";
-            j = JSONML.toJSONObject(s);
+            
             System.out.println(j);
             System.out.println(JSONML);
             System.out.println();
             
-            a = JSONML.toJSONArray(s);
+           
             System.out.println(a);
             System.out.println(JSONML);
             System.out.println();
             
             s = "<person created=\"2006-11-11T19:23\" modified=\"2006-12-31T23:59\">\n <firstName>Robert</firstName>\n <lastName>Smith</lastName>\n <address type=\"home\">\n <street>12345 Sixth Ave</street>\n <city>Anytown</city>\n <state>CA</state>\n <postalCode>98765-4321</postalCode>\n </address>\n </person>";
-            j = XML.toJSONObject(s);
+            
             System.out.println(j);
             
             j = new JSONObject(obj);
             System.out.println(j);
             
             s = "{ \"entity\": { \"imageURL\": \"\", \"name\": \"IXXXXXXXXXXXXX\", \"id\": 12336, \"ratingCount\": null, \"averageRating\": null } }";
-            j = new JSONObject(s);
+            
             System.out.println(j);
 
             jj = new JSONStringer();
@@ -307,7 +323,7 @@ public class Test {
 	                .value(JSONObject.getNames(obj))
 	            .endObject();
             System.out.println(s);
-
+            vero = jj.key("true").value(true);
             System.out.println(new JSONStringer()
                 .object()
                 	.key("a")
@@ -320,7 +336,7 @@ public class Test {
                     .endArray()
                 .endObject());
 
-            jj = new JSONStringer();
+            
             jj.array();
             jj.value(1);
             jj.array();
@@ -331,11 +347,11 @@ public class Test {
             jj.key("answer").value(42);
             jj.key("null").value(null);
             jj.key("false").value(false);
-            jj.key("true").value(true);
+            
             jj.key("big").value(123456789e+88);
             jj.key("small").value(123456789e-88);
             jj.key("empty-object").object().endObject();
-            jj.key("long");
+            jj.key(Long);
             jj.value(9223372036854775807L);
             jj.endObject();
             jj.value("two");
@@ -369,7 +385,7 @@ public class Test {
             System.out.println(j);
             System.out.println(XML);
             System.out.println("");
-
+            String Int = "int";
             j = new JSONObject(
                 "{foo: [true, false,9876543210,    0.0, 1.00000001,  1.000000000001, 1.00000000000000001," +
                 " .00000000000000001, 2.00, 0.1, 2e100, -32,[],{}, \"string\"], " +
@@ -378,7 +394,7 @@ public class Test {
             j.put("String", "98.6");
             j.put("JSONObject", new JSONObject());
             j.put("JSONArray", new JSONArray());
-            j.put("int", 57);
+            j.put(Int, 57);
             j.put("double", 123456789012345678901234567890.);
             j.put("true", true);
             j.put("false", false);
@@ -410,7 +426,7 @@ public class Test {
             System.out.println("  oops: " + j.optBoolean("oops"));
 
             s = "<xml one = 1 two=' \"2\" '><five></five>First \u0009&lt;content&gt;<five></five> This is \"content\". <three>  3  </three>JSON does not preserve the sequencing of elements and contents.<three>  III  </three>  <three>  T H R E E</three><four/>Content text is an implied structure in XML. <six content=\"6\"/>JSON does not have implied structure:<seven>7</seven>everything is explicit.<![CDATA[CDATA blocks<are><supported>!]]></xml>";
-            j = XML.toJSONObject(s);
+            
             System.out.println(j);
             System.out.println(XML);
             System.out.println("");
@@ -421,18 +437,18 @@ public class Test {
             System.out.println("");
             
             s = "<xml do='0'>uno<a re='1' mi='2'>dos<b fa='3'/>tres<c>true</c>quatro</a>cinqo<d>seis<e/></d></xml>";
-            ja = JSONML.toJSONArray(s);
+            
             System.out.println(ja);
             System.out.println(JSONML);
             System.out.println("");
 
             s = "<mapping><empty/>   <class name = \"Customer\">      <field name = \"ID\" type = \"string\">         <bind-xml name=\"ID\" node=\"attribute\"/>      </field>      <field name = \"FirstName\" type = \"FirstName\"/>      <field name = \"MI\" type = \"MI\"/>      <field name = \"LastName\" type = \"LastName\"/>   </class>   <class name = \"FirstName\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class>   <class name = \"MI\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class>   <class name = \"LastName\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class></mapping>";
-            j = XML.toJSONObject(s);
+           
 
             System.out.println(j);
             System.out.println(XML);
             System.out.println("");
-            ja = JSONML.toJSONArray(s);
+            
             System.out.println(ja);
             System.out.println(JSONML);
             System.out.println("");
@@ -528,7 +544,7 @@ public class Test {
             System.out.println("pre: " + j.optInt("pre"));
             int i = jt.skipTo('{');
             System.out.println(i);
-            j = new JSONObject(jt);
+            
             System.out.println(j);
             System.out.println("");
 
@@ -602,7 +618,7 @@ public class Test {
 
 
             System.out.println("\naccumulate: ");
-            j = new JSONObject();
+            
             j.accumulate("stooge", "Curly");
             j.accumulate("stooge", "Larry");
             j.accumulate("stooge", "Moe");
@@ -614,30 +630,31 @@ public class Test {
             System.out.println(j.write(new StringWriter()));
 
             s = "<xml empty><a></a><a>1</a><a>22</a><a>333</a></xml>";
-            j = XML.toJSONObject(s);
+            
             System.out.println(j);
             System.out.println(XML);
             
             s = "<book><chapter>Content of the first chapter</chapter><chapter>Content of the second chapter      <chapter>Content of the first subchapter</chapter>      <chapter>Content of the second subchapter</chapter></chapter><chapter>Third Chapter</chapter></book>";
-            j = XML.toJSONObject(s);
+            
             System.out.println(j);
             System.out.println(XML);
             
-            a = JSONML.toJSONArray(s);
+            
             System.out.println(a);
             System.out.println(JSONML);
-            
+            String stooge = "stooge";
+            String stooges = "stooges";
             Collection c = null;
             Map m = null;
             
             j = new JSONObject(m);
             a = new JSONArray(c);
-            j.append("stooge", "Joe DeRita");
-            j.append("stooge", "Shemp");
-            j.accumulate("stooges", "Curly");
-            j.accumulate("stooges", "Larry");
-            j.accumulate("stooges", "Moe");
-            j.accumulate("stoogearray", j.get("stooges"));
+            j.append(stooge, "Joe DeRita");
+            j.append(stooge, "Shemp");
+            j.accumulate(stooges, "Curly");
+            j.accumulate(stooges, "Larry");
+            j.accumulate(stooges, "Moe");
+            j.accumulate("stoogearray", j.get(stooges));
             j.put("map", m);
             j.put("collection", c);
             j.put("array", a);
@@ -646,28 +663,28 @@ public class Test {
             System.out.println(j);
             
             s = "{plist=Apple; AnimalSmells = { pig = piggish; lamb = lambish; worm = wormy; }; AnimalSounds = { pig = oink; lamb = baa; worm = baa;  Lisa = \"Why is the worm talking like a lamb?\" } ; AnimalColors = { pig = pink; lamb = black; worm = pink; } } "; 
-            j = new JSONObject(s);
+            
             System.out.println(j);
             
             s = " (\"San Francisco\", \"New York\", \"Seoul\", \"London\", \"Seattle\", \"Shanghai\")";
-            a = new JSONArray(s);
+            
             System.out.println(a);
             
             s = "<a ichi='1' ni='2'><b>The content of b</b> and <c san='3'>The content of c</c><d>do</d><e></e><d>re</d><f/><d>mi</d></a>";
-            j = XML.toJSONObject(s);
+            
 
             System.out.println(j);
             System.out.println(XML);
             System.out.println("");
-            ja = JSONML.toJSONArray(s);
+           
             System.out.println(ja);
             System.out.println(JSONML);
             System.out.println("");
             
             s = "<Root><MsgType type=\"node\"><BatchType type=\"string\">111111111111111</BatchType></MsgType></Root>";
-            j = JSONML.toJSONObject(s);
+            
             System.out.println(j);
-            ja = JSONML.toJSONArray(s);
+           
             System.out.println(ja);
           
             
@@ -700,12 +717,12 @@ public class Test {
 	     }
 	}
     public static void main(String[] args) {
-        Iterator it;
-        JSONArray a;
-        JSONObject j;
-        JSONStringer jj;
-        String o;
-        String s;
+        Iterator it=null;
+        JSONArray a=null;
+        JSONObject j=null;
+        JSONStringer jj=null;
+        String o=null;
+        String s=null;
         
 /** 
  *  Obj is a typical class that implements JSONString. It also
