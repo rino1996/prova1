@@ -78,7 +78,7 @@ public class CDL {
 	        case '"':
 	        case '\'':
 	        	q = c;
-	        	String sb;
+	        	String sb=null;
 	        	for1(c, q, sb, x );
 	            return sb;//qui
 	        case ',':
@@ -90,9 +90,9 @@ public class CDL {
 	        }
 	}
     private static String getValue(JSONTokener x) throws JSONException {
-        char c;
-        char q;
-        String sb;
+        char c=0;
+        char q=0;
+        String sb=null;
         do {
             c = x.next();
         } while (c == ' ' || c == '\t');

@@ -256,7 +256,6 @@ public class JSONArray {
 	     */
 	    public boolean getBoolean(int index) throws JSONException {
 	        Object o = get(index);
-	        String stampa = " ";
 	        if (o.equals(Boolean.FALSE) ||
 	                (o instanceof String &&
 	                ("false".equalsIgnoreCase(String(o))))) {
@@ -266,8 +265,7 @@ public class JSONArray {
 	                		("true".equalsIgnoreCase(String(o))))) {
 	            return true;
 	        }
-	        stampa = "JSONArray[" + index + "] is not a Boolean."
-	        throw new JSONException(stampa);
+	        throw new JSONException("JSONArray[" + index + "] is not a Boolean.");
 	    }
 
 

@@ -24,7 +24,7 @@ public class elar001 extends PApplet {
 	 * @author utente
 	 * @classe elarAttr
 	 */
-	final public class elarAttr{
+	final public class ElarAttr{
 		
 		int width_default=800;
 		int height_default=600;
@@ -79,6 +79,10 @@ public class elar001 extends PApplet {
 		boolean bos_contact=false;
 
 	}
+	//as imaxes
+	PImage img00;
+	PImage img01;
+	PImage img;
 	
 /*
 v001
@@ -142,7 +146,9 @@ int section=0;
 //other vars
 int y = year(); //the year
 int panel_number;
-
+/**
+ * documentazione javaDoc
+ */
 public void setup() {
   
   //mysql configuration  
@@ -230,7 +236,9 @@ public void setup() {
    
 }
 
-
+/**
+ * documentazione javaDoc
+ */
 public void draw() {
 	int ai=50;
 	int bc=10;
@@ -286,14 +294,14 @@ public void draw() {
   int xa=270;
   int yy=350;  
   int xx=100;
-  int y=80;
+  int ciuffo=80;//y
   int x=200;
-  text(despription_panel[section], x, y);
+  text(despription_panel[section], x, ciuffo);//y
   
   initButtons();
   
   bulb = new Bulb[1];
-  bulb[0] = new Bulb(false,"Bombilla tipo",x, xx, y, y);
+  bulb[0] = new Bulb(false,"Bombilla tipo",x, xx, ciuffo, ciuffo);//y
   
   if (section==1) {
     bulb[0].display();
@@ -467,9 +475,7 @@ public void serialEvent(Serial myPor) {
 
 
 
-//as imaxes
-PImage img00;
-PImage img01;
+
 
 public void show_about_us() {
 	int text3=16;
@@ -486,8 +492,12 @@ public void show_about_us() {
    text(l_text_about_us[lang], gg, sa); 
     
 }
-PImage img;
 
+/**
+ * documentazione javaDoc
+ * @author vincy
+ *
+ */
 class Bulb { 
   boolean o_o;
   String des;
@@ -503,7 +513,9 @@ class Bulb {
     h=hp;
     w=wp;
   } 
-  
+  /**
+   * documentazione javaDoc
+   */
   public void display () {
   
       if (o_o==false) {
@@ -523,6 +535,12 @@ class Bulb {
   }
   
 }
+
+/**
+ * documentazione javaDoc
+ * @author vincy
+ *
+ */
 class Button { 
   int x;
   int y; // The x- and y-coordinates 
@@ -550,6 +568,9 @@ class Button {
     
   } 
 // Updates the over field every frame 
+  /**
+   * documentazione javaDoc
+   */
   public void update() { 
     if ((mouseX >= x) && (mouseX <= x+xsize) && 
         (mouseY >= y) && (mouseY <= y+ysize)) { 
@@ -559,6 +580,10 @@ class Button {
     } 
   }
   
+  /**
+   * documentazione javaDoc
+   * @return
+   */
   public boolean press() { 
     if (over == true) { 
       pressed = true; 
@@ -588,12 +613,29 @@ class Button {
     text(texto_boton, x+5, y+(ysize/2)+corrector);
   } 
 } 
+
+/**
+ * documentazione JavaDoc
+ * @author vincy
+ *
+ */
 class Check { 
   int x;
   int y; // The x- and y-coordinates 
   int size; // Dimension (width and height) 
   int baseGray; // Default gray value 
   boolean checked = false; // True when the check box is selected 
+  
+  //vincenza String
+  String[] l_page_title={"eLAR Project", "Proxecto eLAR", "Proyecto eLAR"};
+  String[] l_slogan={"Free Domotic System", "Sistema Dom\u00f3tico Libre", "Sistema Dom\u00f3tico Libre"};
+  String[] l_footer={
+    "eLAR [visit hardprocessing.org] | this panel is make with processing [visit processing.org] | (c) wireless galicia, bdunk",
+    "eLAR [visite hardprocessing.org] | este panel est\u00e1 feito con processing [visite processing.org] | (c) wireless galicia, bdunk",
+    "eLAR [visite hardprocessing.org] | este panel est\u00e1 hecho con processing [visite processing.org] | (c) wireless galicia, bdunk"};
+  String[] l_about_us={"About us", "Sobre n\u00f3s", "Acerca de"};
+  String[] l_text_about_us={"We are a group of restless minds", "Somos un grupo de mentes inquietas", "Somos un grupo de mentes inquietas"};
+  
   Check(int xp, int yp, int s, int b) { 
     x = xp; 
     y = yp; 
@@ -601,12 +643,20 @@ class Check {
     baseGray = b; 
   } 
 // Updates the boolean variable checked 
+  /**
+   * documentazione javaDoc
+   * @param mx
+   * @param my
+   */
   public void press(float mx, float my) { 
     if ((mx >= x) && (mx <= x+size) && (my >= y) && (my <= y+size)) { 
       checked = !checked; // Toggle the check box on and off 
     } 
   } 
-// Draws the box and an X inside if the checked variable is true 
+
+  /**
+   * documentazione javaDoc
+   */
   public void display() { 
 	  int b= 255;
     stroke(b); 
@@ -630,21 +680,7 @@ class Check {
 } 
 //l_test={"", "", ""},
 
-String[]
-l_page_title={"eLAR Project", "Proxecto eLAR", "Proyecto eLAR"};
-String[]
-l_slogan={"Free Domotic System", "Sistema Dom\u00f3tico Libre", "Sistema Dom\u00f3tico Libre"};
-String[]
-l_footer={
-  "eLAR [visit hardprocessing.org] | this panel is make with processing [visit processing.org] | (c) wireless galicia, bdunk",
-  "eLAR [visite hardprocessing.org] | este panel est\u00e1 feito con processing [visite processing.org] | (c) wireless galicia, bdunk",
-  "eLAR [visite hardprocessing.org] | este panel est\u00e1 hecho con processing [visite processing.org] | (c) wireless galicia, bdunk"
-};
-String[]
-l_about_us={"About us", "Sobre n\u00f3s", "Acerca de"};
-String[]
-l_text_about_us={"We are a group of restless minds", "Somos un grupo de mentes inquietas", "Somos un grupo de mentes inquietas"}
-;
+
 public static void switchMethod(int stop, int default_value, float value, int operator) {//mio
 	 switch (operator) {
      case 0:
@@ -717,6 +753,12 @@ public static void ifMethod() {//mio
 	      
 	   }
 }
+
+/**
+ * documentazione javaDoc
+ * @author vincy
+ *
+ */
 class Rule {
   
    Rule() {
@@ -730,6 +772,12 @@ class Rule {
    
   
 }
+
+/**
+ * documentazione javaDoc
+ * @author vincy
+ *
+ */
 class Scrollbar { 
   int x;
   int y; // The x- and y-coordinates 
@@ -754,6 +802,11 @@ class Scrollbar {
     posMax = x + sw - sh; 
   } 
 // Updates the over boolean and the position of the thumb 
+  /**
+   * documentazione javaDoc
+   * @param mx
+   * @param my
+   */
   public void update(int mx, int my) { 
 	  boolean pp=over(mx, my);//mio
     if (pp == true) { 
@@ -766,6 +819,12 @@ class Scrollbar {
     } 
   } 
 // Locks the thumb so the mouse can move off and still update 
+  
+  /**
+   * documentazione javadoc
+   * @param mx
+   * @param my
+   */
   public void press(int mx, int my) { 
     if (rollover == true) { 
       locked = true; 

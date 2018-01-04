@@ -34,8 +34,18 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
 
+/**
+ * classe principale
+ * documentazione JavaDoc
+ * @author vincy
+ *
+ */
 final class Null {
-	
+	/**
+	 * la funzione assume un double dalla stringa
+	 * @param d
+	 * @return
+	 */
     static public String doubleToString(double d) {
         if (Double.isInfinite(d) || Double.isNaN(d)) {
             return "null";
@@ -70,7 +80,13 @@ final class Null {
     
     static class other{
     	
-    
+    /**
+     * 
+     * @param key
+     * @param value
+     * @return 
+     * @throws JSONException
+     */
     public JSONObject accumulate(String key, Object value)
             throws JSONException {
         testValidity(value);
@@ -98,15 +114,17 @@ final class Null {
      *  associated with the key is not a JSONArray.
      */
     public JSONObject append(String key, Object value) throws JSONException {
-        testValidity(value);
+        String eccezione = " ";
+    	testValidity(value);
         Object o = opt(key);
         if (o == null) {
             put(key, new JSONArray().put(value));
         } else if (o instanceof JSONArray) {
             put(key, ((JSONArray)o).put(value));
         } else {
-            throw new JSONException("JSONObject[" + key +
-                    "] is not a JSONArray.");
+        	eccezione = "JSONObject[" + key +
+                    "] is not a JSONArray.";
+            throw new JSONException(eccezione);
         }
         return this;
     }
@@ -150,11 +168,11 @@ final class Null {
         Object o = get(key);
         if (o.equals(Boolean.FALSE) ||
                 (o instanceof String &&
-                ((String)o).equalsIgnoreCase("false"))) {
+                		"false".equalsIgnoreCase((String)o))) {
             return false;
         } else if (o.equals(Boolean.TRUE) ||
                 (o instanceof String &&
-                ((String)o).equalsIgnoreCase("true"))) {
+                		"false".equalsIgnoreCase((String)o))) {
             return true;
         }
         throw new JSONException("JSONObject[" + quote(key) +
@@ -352,8 +370,13 @@ final class Null {
     	return this;
     }
     }
-
-static class Tagl implements Cloneable{
+/**
+ * nuova classe
+ * documentazione javaDoc
+ * @author vincy
+ *
+ */
+static class Tagl {
 	
 
     /**
@@ -409,8 +432,8 @@ static class Tagl implements Cloneable{
      * so the clone method returns itself.
      * @return     NULL.
      */
-    protected final String clone() {
-        return this.toString();
+    public String pippo() {
+        return " ";
     }
     /**
      * A Null object is equal to the null value and to itself.
@@ -429,7 +452,11 @@ static class Tagl implements Cloneable{
     	 */
     	public int value;//mio
     	
-    	
+    	/**
+    	 * la funzione è di tipo boolean
+    	 * return temp.value
+    	 * return 
+    	 */
     public boolean equals(Object o) { if (o instanceof EQLFIXED) {
 
   	 // if (getClass () != obj.getClass ()) { 
@@ -456,6 +483,12 @@ static class Tagl implements Cloneable{
         return "null";
     }
     
+    /**
+     * 
+     * @param c
+     * @param x
+     * @param key
+     */
     public void switch1(char c, JSONTokener x, String key) {
     	  switch (c) {
         case 0:
@@ -721,8 +754,8 @@ static class Tagl implements Cloneable{
     
     
     public void ifMethod3(String name, String key) {
-    	if (name.equals("getClass") || 
-    			name.equals("getDeclaringClass")) {
+    	if ( "getClass".equals(name) || 
+    			"getDeclaringClass".equals(name)) {
     		key = "";
     	} else {
     		key = name.substring(3);
@@ -966,7 +999,7 @@ static class Tagl implements Cloneable{
                  * The key is followed by ':'. We will also tolerate '=' or '=>'.
                  */
 
-                c = x.nextClean();
+                
                 if (c == '=') {
                     if (x.next() != '>') {
                         x.back();
@@ -1068,13 +1101,14 @@ public class JSONObject {
      */
     public JSONObject(JSONObject jo, String[] names) {
         this();
+        String errore = "Descriptive error";
         try {
     		
         for (int i = 0; i < names.length; i += 1) {
         	putOnce(names[i], jo.opt(names[i]));
         }
         } catch (Exception ignore) {
-    		System.out.println("Descriptive error");//mio
+    		System.out.println(errore);//mio
     	}
     }
 
@@ -1154,7 +1188,7 @@ public class JSONObject {
      * @param names An array of strings, the names of the fields to be obtained
      * from the object.
      */
-    public JSONObject(Object object, String names[]) {
+    public JSONObject(Object object, String[] names) {
         this();
         Class c = object.getClass();
         try {
@@ -1184,7 +1218,12 @@ public class JSONObject {
 
 
  
-
+/**
+ * nuova classe
+ * documetazione JavaDoc
+ * @author vincy
+ *
+ */
 static class modifI{
 	
 
@@ -1194,6 +1233,14 @@ static class modifI{
     
     
     //________________________________________
+	
+	/**
+	 * 
+	 * @param c
+	 * @param b
+	 * @param sb
+	 * @param t
+	 */
     public static void switchForMethod(char c, char b, StringBuffer sb, String t) {
     	  switch (c) {
           case '\\':
@@ -1284,17 +1331,17 @@ static class modifI{
     //__________________________________________________
     
     public static Boolean ifstringToValueMethod(String s) {
-    	 if (s.equals("")) {
-    		 Boolean x = s.equals("");
+    	 if ("".equals(s)) {
+    		 Boolean x = "".equals(s);
              return x;
          }
-         if (s.equalsIgnoreCase("true")) {
+         if ("true".equalsIgnoreCase(s)) {
              return Boolean.TRUE;
          }
-         if (s.equalsIgnoreCase("false")) {
+         if ("false".equalsIgnoreCase(s)) {
              return Boolean.FALSE;
          }
-         if (s.equalsIgnoreCase("null")) {
+         if ("null".equalsIgnoreCase(s)) {
              return (Boolean) JSONObject.NULL;
          }
     	
@@ -1479,7 +1526,7 @@ public void ifFloatThrowMethod(Object o) {
      * @throws JSONException If the object contains an invalid number.
      */
     String toString(int indentFactor, int indent) throws JSONException {
-        int j;
+        int j=0;
         int n = length();
         if (n == 0) {
             return "{}";
@@ -1487,7 +1534,7 @@ public void ifFloatThrowMethod(Object o) {
         Iterator     keys = sortedKeys();
         StringBuffer sb = new StringBuffer("{");
         int          newindent = indent + indentFactor;
-        Object       o;
+        Object       o=null;
         if (n == 1) {
             o = keys.next();
             sb.append(quote(o.toString()));
@@ -1543,11 +1590,9 @@ public void ifFloatThrowMethod(Object o) {
      *  with <code>}</code>&nbsp;<small>(right brace)</small>.
      * @throws JSONException If the value is or contains an invalid number.
      */
-    //____________________________________________________________
-    
     public static String (Object value) {
     	
-    	if (value == null || value.equals(null)) {
+    	if (value == null || "null".equals(value)) {
             return "null";
         }
     }
@@ -1586,7 +1631,7 @@ public void ifFloatThrowMethod(Object o) {
     
     static String valueToString(Object value) throws JSONException {
     	nullMethod(value);
-    	Object o;
+    	Object o=null;
     	o= eccezioneValueToString(o);
     	
         stringValue(o);
@@ -1603,6 +1648,13 @@ public void ifFloatThrowMethod(Object o) {
 		// TODO Auto-generated method stub
 		
 	}
+    
+    /**
+     * nuova classe
+     * documentazione javaDoc
+     * @author vincy
+     *
+     */
 static class Angor{
 	
 
@@ -1621,8 +1673,6 @@ static class Angor{
      *  with <code>}</code>&nbsp;<small>(right brace)</small>.
      * @throws JSONException If the object contains an invalid number.
      */
-    //__________________________________________________________
-    
     public static String eccezioneValueToStringMethod(Object value) {
     	  try {
               if (value instanceof JSONString) {
@@ -1686,7 +1736,7 @@ static class Angor{
      static String valueToString(Object value, int indentFactor, int indent)
             throws JSONException {
     	 
-        if (value == null || value.equals(null)) {
+        if (value == null ||  "null".equals(value)) {
             return "null";
         }
         
