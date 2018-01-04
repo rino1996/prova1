@@ -41,7 +41,7 @@ final class XMLInOut{
 	 * @return
 	 * 
 	 */
-	public class SpecificException extends Exception {//mio da qui
+	private class SpecificException extends Exception {//mio da qui
 
 	    public SpecificException() {
 	      super();
@@ -53,7 +53,7 @@ final class XMLInOut{
 	 * @return
 	 * 
 	 */
-	  public class Solution {
+	  private class Solution {
 	    public void compute(Object subject) throws SpecificException {
 	      if (subject == null) {
 	        throw new SpecificException();

@@ -78,7 +78,7 @@ final class Null {
      *  or if the key is null.
      */
     
-    static class other{
+    private static class other{
     	
     /**
      * 
@@ -376,7 +376,7 @@ final class Null {
  * @author vincy
  *
  */
-static class Tagl {
+private static class Tagl {
 	
 
     /**
@@ -442,7 +442,7 @@ static class Tagl {
      *  or null.
      */
     
-    public class EQLFIXED{
+    private class EQLFIXED{
     	
     	/**
     	 * la funzione dichiara il tipo di value.
@@ -1224,7 +1224,7 @@ public class JSONObject {
  * @author vincy
  *
  */
-static class modifI{
+private class modifI{
 	
 
     
@@ -1241,7 +1241,7 @@ static class modifI{
 	 * @param sb
 	 * @param t
 	 */
-    public static void switchForMethod(char c, char b, StringBuffer sb, String t) {
+    public void switchForMethod(char c, char b, StringBuffer sb, String t) {
     	  switch (c) {
           case '\\':
           case '"':
@@ -1273,7 +1273,7 @@ static class modifI{
     //_______________________________________
     
     //______________________________________________
-    public static void forMethod(String string, int len,char b, char c, StringBuffer sb, String t) {
+    public void forMethod(String string, int len,char b, char c, StringBuffer sb, String t) {
         for (int i = 0; i < len; i += 1) {
             b = c;
             c = string.charAt(i);
@@ -1282,7 +1282,7 @@ static class modifI{
         }
     }
     //___________________________________________
-    public static String quote(String string) {
+    public String quote(String string) {
         if (string == null || string.length() == 0) {
             return "\"\"";
         }
@@ -1330,7 +1330,7 @@ static class modifI{
      */
     //__________________________________________________
     
-    public static Boolean ifstringToValueMethod(String s) {
+    public  Boolean ifstringToValueMethod(String s) {
     	 if ("".equals(s)) {
     		 Boolean x = "".equals(s);
              return x;
@@ -1349,7 +1349,7 @@ static class modifI{
     
     //__________________________________________________
     
-    public static Integer primaProva(String s, char b) {
+    public  Integer primaProva(String s, char b) {
     	if (b == '0' && s.length() > 2 &&
                 (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
         try {
@@ -1363,7 +1363,7 @@ static class modifI{
     
     //_________________________________________________
     
-    public static Double secondaProva(String s) {
+    public  Double secondaProva(String s) {
     	try {
             if (s.indexOf('.') > -1 || 
             		s.indexOf('e') > -1 || s.indexOf('E') > -1) {
@@ -1380,7 +1380,7 @@ static class modifI{
     
     //______________________________________________
     
-    public static int ifSecondaProva(Long myLong) {
+    public  int ifSecondaProva(Long myLong) {
     
     	if (myLong.longValue() == myLong.intValue()) {
             return new Integer(myLong.intValue());
@@ -1390,7 +1390,7 @@ static class modifI{
     }
     
     //____________________________________________
-    static public String stringToValue(String s) {
+     public String stringToValue(String s) {
     	
     	ifstringToValueMethod(s);
        
@@ -1425,7 +1425,7 @@ public void ifFloatThrowMethod(Object o) {
      * @param o The object to test.
      * @throws JSONException If o is a non-finite number.
      */
-    static void testValidity(Object o) throws JSONException {
+    public void testValidity(Object o) throws JSONException {
         if (o != null) {
             if (o instanceof Double) {
                 if (((Double)o).isInfinite() || ((Double)o).isNaN()) {
@@ -1590,7 +1590,7 @@ public void ifFloatThrowMethod(Object o) {
      *  with <code>}</code>&nbsp;<small>(right brace)</small>.
      * @throws JSONException If the value is or contains an invalid number.
      */
-    public static String (Object value) {
+    public  String (Object value) {
     	
     	if (value == null || "null".equals(value)) {
             return "null";
@@ -1655,7 +1655,7 @@ public void ifFloatThrowMethod(Object o) {
      * @author vincy
      *
      */
-static class Angor{
+private class Angor{
 	
 
 
@@ -1673,7 +1673,7 @@ static class Angor{
      *  with <code>}</code>&nbsp;<small>(right brace)</small>.
      * @throws JSONException If the object contains an invalid number.
      */
-    public static String eccezioneValueToStringMethod(Object value) {
+    public  String eccezioneValueToStringMethod(Object value) {
     	  try {
               if (value instanceof JSONString) {
                   Object o = ((JSONString)value).toJSONString();
@@ -1687,7 +1687,7 @@ static class Angor{
     }
     //__________________________________________________________
     
-    public static String valueNumberMethod(Object value) {
+    public  String valueNumberMethod(Object value) {
     	if (value instanceof Number) {
             return numberToString((Number) value);
         }
@@ -1695,7 +1695,7 @@ static class Angor{
     
     //__________________________________________________________
     
-    public static String valueBooleanMethod(Object value) {
+    public  String valueBooleanMethod(Object value) {
     	if (value instanceof Boolean) {
             return value.toString();
         }
@@ -1703,14 +1703,14 @@ static class Angor{
     
     //_________________________________________________________
     
-    public static String valueJsonObjectValueMetod(Object value, int indent, int indentFactor) {
+    public  String valueJsonObjectValueMetod(Object value, int indent, int indentFactor) {
     	if (value instanceof JSONObject) {
             return ((JSONObject)value).toString(indentFactor, indent);
         }
     }
     //___________________________________________________________
     
-    public static String valueJsonArrayValueMethod(Object value, int indentFactor, int indent) {
+    public  String valueJsonArrayValueMethod(Object value, int indentFactor, int indent) {
     	if (value instanceof JSONArray) {
             return ((JSONArray)value).toString(indentFactor, indent);
         }
@@ -1718,7 +1718,7 @@ static class Angor{
     
     //___________________________________________________________
     
-    public static String valueJsonObjectValueMap(Object value, int indentFactor, int indent) {
+    public  String valueJsonObjectValueMap(Object value, int indentFactor, int indent) {
     	 if (value instanceof Map) {
              return new JSONObject((Map)value).toString(indentFactor, indent);
          }
@@ -1727,7 +1727,7 @@ static class Angor{
     
   //___________________________________________________________
     
-    public static String valueJsonObjectValueCollection(Object value, int indentFactor, int indent) {
+    public  String valueJsonObjectValueCollection(Object value, int indentFactor, int indent) {
     	if (value instanceof Collection) {
             return new JSONArray((Collection)value).toString(indentFactor, indent);
         }

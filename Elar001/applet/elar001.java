@@ -24,7 +24,7 @@ public class elar001 extends PApplet {
 	 * @author utente
 	 * @classe elarAttr
 	 */
-	final public class ElarAttr{
+	private class ElarAttr{
 		
 		int width_default=800;
 		int height_default=600;
@@ -498,7 +498,7 @@ public void show_about_us() {
  * @author vincy
  *
  */
-class Bulb { 
+private class Bulb { 
   boolean o_o;
   String des;
   int x;
@@ -541,7 +541,7 @@ class Bulb {
  * @author vincy
  *
  */
-class Button { 
+private class Button { 
   int x;
   int y; // The x- and y-coordinates 
   int xsize; // Dimension (width) 
@@ -619,7 +619,7 @@ class Button {
  * @author vincy
  *
  */
-class Check { 
+private class Check { 
   int x;
   int y; // The x- and y-coordinates 
   int size; // Dimension (width and height) 
@@ -759,7 +759,7 @@ public static void ifMethod() {//mio
  * @author vincy
  *
  */
-class Rule {
+private class Rule {
   
    Rule() {
    
@@ -778,7 +778,7 @@ class Rule {
  * @author vincy
  *
  */
-class Scrollbar { 
+private class Scrollbar { 
   int x;
   int y; // The x- and y-coordinates 
   float sw;

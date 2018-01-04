@@ -76,7 +76,7 @@ public class XML {
      * @return The escaped string.
      */
     
-    static class xml1 {
+    private class xml1 {
     	
 
     public static String escape(String string) {

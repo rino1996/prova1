@@ -83,7 +83,7 @@ import java.util.Map;
  */
 public class JSONArray {
 	
-	static class Meth {
+	private class Meth {
 		private ArrayList myArrayList;
 
 		public JSONArray() {
@@ -137,7 +137,7 @@ public class JSONArray {
 	}
 
 	
-	static class Prova {//mio
+	private class Prova {//mio
 		public static void switchMethod(char c, char q, JSONTokener x) {//mio
 	    	switch (c) {
 	        case ';':
