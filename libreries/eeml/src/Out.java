@@ -297,7 +297,7 @@ public class Out {
 		return rCode;
 	}
 
-	public static int updateDataAuthorizer(String urlstr, String parameters, String pachubeAPIKey)
+	public static Object updateDataAuthorizer(String urlstr, String parameters, String pachubeAPIKey)
 	throws IOException
 	{
 		int rCode=0; 
@@ -320,7 +320,7 @@ public class Out {
 			printout.close ();
 
 			rCode = ((HttpURLConnection) hpcon).getResponseCode();
-			return (int) hpcon.getContent();		
+			return hpcon.getContent();		
 		} catch(Exception  e){
 			 logSecurityIssue(e); //
 		      terminateInsecureConnection();
