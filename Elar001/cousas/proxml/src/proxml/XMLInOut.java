@@ -816,7 +816,8 @@ public void errorMethod(String sTagName) {
 	}
 	
 	
-	public InputStream loadFile(InputStream stream, String filename,  int aux ) {
+	public InputStream loadFile(InputStream stream, String filen,  int aux ) {
+		String filename = filen;
 		try{
 			File file = new File(pApplet.sketchPath, filename);
 			try{//mio
@@ -893,7 +894,8 @@ public void errorMethod(String sTagName) {
             }
           }
 	}
-	private InputStream openStream(String filename){
+	private InputStream openStream(String filen){
+		String filename = filen;
 		InputStream stream = null;
 		String filenameActual = " ";
 		int aux = 0;
