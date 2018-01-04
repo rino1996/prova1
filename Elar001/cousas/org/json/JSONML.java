@@ -155,7 +155,7 @@ public void ifCMethod(XMLTokener x) {
         
         
         public static void openTagControlMethod(XMLTokener x,Object token) {
-        	private final String errore = "Misshaped tag";
+        	 String errore = "Misshaped tag";
         	token = null;
             while (token == null) {
                 if (token == null) {
