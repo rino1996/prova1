@@ -65,8 +65,8 @@ public class Test {
         } 
 	}
 	public static void try1Method(JSONArray a) {//mio
-		String stampa = "Something was wrong ";
-		String eccezione = "Exception";
+	 String stampa = "Something was wrong ";
+	 String eccezione = "Exception";
 		try {
             a = new JSONArray("[\n\r\n\r}");
             System.out.println(a.toString());
@@ -96,7 +96,7 @@ public class Test {
 		String stampa = "Something was wrong ";
 		String eccezione = "Exception";
 		String howard = "howard";
-		String stooge = j.getDouble("stooge");
+		 String stooge = j.getDouble("stooge");
 		 System.out.print(eccezione);
          try {
              System.out.println(stooge);
@@ -220,7 +220,7 @@ public class Test {
  	                .value("MARIE HAA\\'S")
  	            .endObject()
  	            .toString();
-             System.out.println(j.toString(4));
+             System.out.println(jj.toString(4));
          } catch (Exception e) {
          	System.out.println("Something was wrong");
          }
@@ -366,7 +366,6 @@ public class Test {
             jj.key("one");
             jj.value(1.00);
             jj.endObject();
-            jj.value(obj);
             jj.endArray();
             System.out.println(jj);
 

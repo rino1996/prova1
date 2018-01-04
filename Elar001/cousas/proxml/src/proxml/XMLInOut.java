@@ -818,8 +818,9 @@ public void errorMethod(String sTagName) {
 	
 	public InputStream loadFile(InputStream stream, String filen,  int aux ) {
 		String filename = filen;
+		/*
 		try{
-			File file = new File(pApplet.sketchPath, filename);
+			File file = new File(filename);
 			try{//mio
 				stream = new FileInputStream(file);
 				
@@ -838,6 +839,8 @@ public void errorMethod(String sTagName) {
 	} catch (java.io.IOException e4) {
 		System.out.println("I/O Exception");
 	}
+	*/
+		return stream;
 	}
 
 	
